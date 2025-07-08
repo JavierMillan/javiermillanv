@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // CSS ANIMATIONS (INJECT TO HEAD)
 // ======================================
 
-function injectAnimations() {
+function injectAnimations() { 
     const style = document.createElement('style');
     style.textContent = `
         @keyframes ripple {

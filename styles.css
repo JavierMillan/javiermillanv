@@ -401,7 +401,7 @@ input::placeholder, textarea::placeholder {
     .glass-button:hover {
         transform: translateY(-2px);
     }
-}
+} 
 
 /* Optimización para dispositivos con poca potencia */
 @media (prefers-reduced-motion: reduce) {
