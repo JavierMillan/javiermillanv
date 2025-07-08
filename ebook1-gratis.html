@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIS: Entiende las Páginas de Internet en 1 Hora | Javier Millán</title>
+    <meta name="description" content="Descarga GRATIS mi eBook y aprende HTML, CSS y JavaScript básico. Crea tu primera página web en 1 hora sin tecnicismos.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CSS personalizado para efectos liquid glass -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'glass-blue': '#3b82f6',
+                        'glass-purple': '#8b5cf6',
+                        'glass-pink': '#ec4899',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-zinc-900 text-white font-sans antialiased">
+    <!-- NAVBAR SIMPLE -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="glass-container p-4">
+                <div class="flex items-center justify-between">
+                    <!-- Logo/Nombre -->
+                    <div class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-sm">
+                            JM
+                        </div>
+                        <span class="font-bold text-lg">Javier Millán</span>
+                    </div>
+                    
+                    <!-- Botón volver -->
+                    <div>
+                        <a href="index.html" class="glass-button px-4 py-2 text-sm font-semibold">
+                            ← Volver al inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Fondo animado -->
+        <div class="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900">
+            <div class="floating-element floating-element-1"></div>
+            <div class="floating-element floating-element-2"></div>
+            <div class="floating-element floating-element-3"></div>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <!-- Badge GRATIS -->
+            <div class="inline-block mb-6">
+                <span class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
+                    🎁 Completamente GRATIS
+                </span>
+            </div>
+            
+            <!-- Título principal -->
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    Entiende las Páginas
+                </span>
+                <br>
+                <span class="text-white">de Internet en 1 Hora</span>
+            </h1>
+            
+            <!-- Subtítulo -->
+            <p class="text-xl md:text-2xl text-zinc-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                La guía práctica y sin tecnicismos para crear tu primera página web desde cero
+            </p>
+            
+            <!-- Mockup del libro -->
+            <div class="mb-8">
+                <div class="w-48 h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mx-auto shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300 flex items-center justify-center">
+                    <div class="text-white font-bold text-center">
+                        <div class="text-2xl mb-2">HTML</div>
+                        <div class="text-lg mb-2">CSS</div>
+                        <div class="text-lg">JS</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA Principal -->
+            <div class="mb-8">
+                <button class="glass-button px-8 py-4 text-xl font-bold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-green-500 to-emerald-600" onclick="window.open('TU_ENLACE_HOTMART_GRATIS', '_blank')">
+                    📚 Descargar GRATIS Ahora
+                </button>
+                <p class="text-sm text-zinc-400 mt-2">* No se requiere tarjeta de crédito</p>
+            </div>
+            
+            <!-- Indicadores de beneficios -->
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-zinc-400">
+                <span class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> Acceso inmediato
+                </span>
+                <span class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> Sin spam
+                </span>
+                <span class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> Formato PDF
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN QUÉ VAS A APRENDER -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-container p-8 md:p-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">
+                        ¿Qué vas a <span class="text-blue-400">aprender</span>?
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">HTML desde cero</h3>
+                                    <p class="text-zinc-300 text-sm">Aprende las etiquetas básicas y crea tu primera estructura web</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">CSS para dar estilo</h3>
+                                    <p class="text-zinc-300 text-sm">Colores, fuentes y diseños que enamoran a los visitantes</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">JavaScript interactivo</h3>
+                                    <p class="text-zinc-300 text-sm">Haz que tu página reaccione a clicks y eventos</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">Manipulación del DOM</h3>
+                                    <p class="text-zinc-300 text-sm">Controla cada elemento de tu página como un mago</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">Sin tecnicismos</h3>
+                                    <p class="text-zinc-300 text-sm">Explicaciones simples con ejemplos del día a día</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <span class="text-green-400 text-xl">✓</span>
+                                <div>
+                                    <h3 class="font-bold mb-1">Proyectos prácticos</h3>
+                                    <p class="text-zinc-300 text-sm">Aprende haciendo, no solo leyendo teoría</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN SOBRE EL AUTOR -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-container p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <!-- Foto del autor -->
+                        <div class="flex-shrink-0">
+                            <div class="glass-avatar w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden">
+                                <img src="https://via.placeholder.com/200x200/3b82f6/ffffff?text=Javier" alt="Javier Millán" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        
+                        <!-- Contenido -->
+                        <div class="flex-1 text-center md:text-left">
+                            <h2 class="text-2xl md:text-3xl font-bold mb-4">
+                                Sobre <span class="text-blue-400">Javier Millán</span>
+                            </h2>
+                            
+                            <p class="text-lg text-zinc-300 mb-4 leading-relaxed">
+                                Ingeniero en Software, diseñador web y <strong class="text-white">aprendiz eterno</strong>. 
+                                Creador de La Red de Luz, una comunidad enfocada en el crecimiento integral: 
+                                tecnología + consciencia.
+                            </p>
+                            
+                            <p class="text-zinc-300 leading-relaxed">
+                                Mi misión es compartir conocimiento de forma simple y práctica, 
+                                sin tecnicismos aburridos. Creo que aprender debería ser como comer tacos: 
+                                sencillo, accesible y mejor con amigos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL --> 
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="glass-container p-8">
+                    <h2 class="text-3xl font-bold mb-4">
+                        ¿Listo para <span class="text-green-400">empezar</span>?
+                    </h2>
+                    
+                    <p class="text-xl text-zinc-300 mb-8">
+                        Descarga el eBook ahora y crea tu primera página web en la próxima hora
+                    </p>
+                    
+                    <button class="glass-button px-8 py-4 text-xl font-bold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-green-500 to-emerald-600 w-full md:w-auto" onclick="window.open('TU_ENLACE_HOTMART_GRATIS', '_blank')">
+                        📚 Sí, quiero mi eBook GRATIS
+                    </button>
+                    
+                    <p class="text-sm text-zinc-400 mt-4">
+                        * El enlace de descarga llegará a tu email al instante
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="py-8 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <p class="text-zinc-400">
+                    © 2024 Javier Millán · javiermillanv.com
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript externo -->
+    <script src="script.js"></script>
+</body>
+</html>

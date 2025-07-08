@@ -1,0 +1,439 @@
+/* =================================
+   ESTILOS LIQUID GLASS - JAVIER MILLÁN
+   ================================= */
+
+/* Variables CSS para consistencia */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --glass-glow: rgba(59, 130, 246, 0.3);
+    --glass-hover: rgba(255, 255, 255, 0.12);
+    --blur-amount: 16px;
+}
+
+/* Configuración base para smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos para el navbar */
+#navbar {
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Contenedor principal con efecto glass */
+.glass-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 32px var(--glass-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo sutil en hover */
+.glass-container:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 12px 40px var(--glass-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Pseudo-elemento para crear reflejos dinámicos */
+.glass-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.glass-container:hover::before {
+    left: 100%;
+}
+
+/* Botones con efecto glass */
+.glass-button {
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.3) 0%, 
+        rgba(139, 92, 246, 0.3) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 20px rgba(59, 130, 246, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-button:hover {
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.5) 0%, 
+        rgba(139, 92, 246, 0.5) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 6px 30px rgba(59, 130, 246, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Efecto de ondas en click */
+.glass-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.glass-button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Avatar con efecto glass */
+.glass-avatar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: 2px solid var(--glass-border);
+    box-shadow: 
+        0 8px 32px var(--glass-shadow),
+        inset 0 2px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-avatar:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 
+        0 12px 40px var(--glass-shadow),
+        0 0 20px rgba(59, 130, 246, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+/* Tarjetas pequeñas con efecto glass */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Enlaces sociales con efecto glass */
+.glass-social-link {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.glass-social-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Elementos flotantes para el fondo */
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(59, 130, 246, 0.3) 0%, 
+        rgba(139, 92, 246, 0.2) 50%, 
+        transparent 70%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: float 20s infinite ease-in-out;
+}
+
+.floating-element-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 70%;
+    animation-delay: 0s;
+}
+
+.floating-element-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    left: 10%;
+    animation-delay: -7s;
+}
+
+.floating-element-3 {
+    width: 150px;
+    height: 150px;
+    top: 80%;
+    left: 80%;
+    animation-delay: -14s;
+}
+
+/* Animación de flotación */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translateY(-30px) rotate(270deg);
+        opacity: 0.7;
+    }
+}
+
+/* Efecto de partículas brillantes */
+.glass-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.glass-container:hover::after {
+    opacity: 1;
+}
+
+/* Efectos de desenfoque para fondos */
+.blur-bg {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+}
+
+/* Gradientes personalizados para text */
+.gradient-text {
+    background: linear-gradient(135deg, 
+        #3b82f6 0%, 
+        #8b5cf6 50%, 
+        #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Efectos de brillo en hover para elementos interactivos */
+.glow-on-hover {
+    transition: all 0.3s ease;
+}
+
+.glow-on-hover:hover {
+    box-shadow: 
+        0 0 20px rgba(59, 130, 246, 0.4),
+        0 0 40px rgba(59, 130, 246, 0.2),
+        0 0 60px rgba(59, 130, 246, 0.1);
+}
+
+/* Animaciones de entrada */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-up.delay-1 { animation-delay: 0.1s; }
+.fade-in-up.delay-2 { animation-delay: 0.2s; }
+.fade-in-up.delay-3 { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.7);
+}
+
+/* Estilos para inputs y formularios */
+input, textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Estilos especiales para las areas de tags/skills */
+.skill-tag {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .glass-container {
+        border-radius: 16px;
+    }
+    
+    .floating-element {
+        display: none; /* Ocultar elementos flotantes en móvil para mejor performance */
+    }
+    
+    .glass-button {
+        border-radius: 10px;
+    }
+    
+    /* Ajustes del navbar en móvil */
+    #navbar .glass-container {
+        border-radius: 12px;
+    }
+}
+
+/* Efectos de hover mejorados para touch devices */
+@media (hover: hover) {
+    .glass-container:hover {
+        transform: translateY(-4px);
+    }
+    
+    .glass-button:hover {
+        transform: translateY(-2px);
+    }
+} 
+
+/* Optimización para dispositivos con poca potencia */
+@media (prefers-reduced-motion: reduce) {
+    .floating-element {
+        animation: none;
+    }
+    
+    .glass-container::before {
+        display: none;
+    }
+    
+    * {
+        transition: none !important;
+    }
+}
+
+/* Estilos para elementos específicos de las nuevas secciones */
+.aspect-w-16 {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.aspect-w-4 {
+    position: relative;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+}
+
+.aspect-w-16 > *, .aspect-w-4 > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
