@@ -1,0 +1,413 @@
+// ======================================
+// JAVASCRIPT PRINCIPAL - JAVIER MILLÁN
+// ======================================
+
+// Configuración global
+const CONFIG = {
+    navbar: {
+        scrollThreshold: 50,
+        blurIntense: 'blur(20px)',
+        blurNormal: 'blur(16px)'
+    },
+    animations: {
+        scrollOffset: -100,
+        intersectionThreshold: 0.1,
+        intersectionRootMargin: '0px 0px -50px 0px'
+    }
+};
+
+// ======================================
+// NAVBAR EFFECTS
+// ======================================
+
+function initNavbarEffects() {
+    const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > CONFIG.navbar.scrollThreshold) {
+            navbar.style.backdropFilter = CONFIG.navbar.blurIntense;
+            navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+        } else {
+            navbar.style.backdropFilter = CONFIG.navbar.blurNormal;
+            navbar.style.background = 'transparent';
+        }
+    });
+}
+
+// ======================================
+// MOBILE MENU
+// ======================================
+
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (!mobileMenuBtn || !mobileMenu) return;
+
+    mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+        
+        // Cambiar icono del botón
+        const icon = mobileMenuBtn.querySelector('svg');
+        if (icon) {
+            if (mobileMenu.classList.contains('hidden')) {
+                // Icono de hamburger
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            } else {
+                // Icono de X
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            }
+        }
+    });
+}
+
+// ======================================
+// SMOOTH SCROLL
+// ======================================
+
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            
+            if (target) {
+                const offsetTop = target.offsetTop + CONFIG.animations.scrollOffset;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Cerrar menú móvil si está abierto
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    
+                    // Resetear icono del botón
+                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                    const icon = mobileMenuBtn?.querySelector('svg');
+                    if (icon) {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                    }
+                }
+            }
+        });
+    });
+}
+
+// ======================================
+// CONTACT FORM
+// ======================================
+
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Obtener datos del formulario
+        const formData = new FormData(this);
+        const name = this.querySelector('input[type="text"]')?.value;
+        const email = this.querySelector('input[type="email"]')?.value;
+        const message = this.querySelector('textarea')?.value;
+        
+        // Validación básica
+        if (!name || !email || !message) {
+            showNotification('Por favor, completa todos los campos.', 'error');
+            return;
+        }
+        
+        // Validar email
+        if (!isValidEmail(email)) {
+            showNotification('Por favor, ingresa un email válido.', 'error');
+            return;
+        }
+        
+        // Simular envío exitoso
+        showNotification('¡Gracias por tu mensaje! Te contactaré pronto.', 'success');
+        
+        // Resetear formulario
+        this.reset();
+    });
+}
+
+// ======================================
+// INTERSECTION OBSERVER ANIMATIONS
+// ======================================
+
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: CONFIG.animations.intersectionThreshold,
+        rootMargin: CONFIG.animations.intersectionRootMargin
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observar todas las secciones
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    });
+}
+
+// ======================================
+// GLASS BUTTON EFFECTS
+// ======================================
+
+function initGlassButtonEffects() {
+    document.querySelectorAll('.glass-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Crear efecto ripple
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+                z-index: 1;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+}
+
+// ======================================
+// UTILIDADES
+// ======================================
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function showNotification(message, type = 'info') {
+    // Crear elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
+    
+    // Estilos según el tipo
+    const styles = {
+        success: 'bg-green-500 text-white',
+        error: 'bg-red-500 text-white',
+        info: 'bg-blue-500 text-white'
+    };
+    
+    notification.className += ` ${styles[type] || styles.info}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animación de entrada
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remover después de 3 segundos
+    setTimeout(() => {
+        notification.style.transform = 'translateX(full)';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// ======================================
+// EFECTOS DE URGENCIA (PARA PÁGINAS DE VENTAS)
+// ======================================
+
+function initUrgencyEffects() {
+    const urgencyElements = document.querySelectorAll('.urgency-text');
+    if (urgencyElements.length === 0) return;
+
+    function updateUrgency() {
+        urgencyElements.forEach(el => {
+            el.style.opacity = el.style.opacity === '0.5' ? '1' : '0.5';
+        });
+    }
+    
+    setInterval(updateUrgency, 2000);
+}
+
+// ======================================
+// FAQ ACCORDION (PARA PÁGINAS DE VENTAS)
+// ======================================
+
+function initFAQAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        
+        if (question && answer) {
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                // Cerrar todos los otros items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('open');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    if (otherAnswer) {
+                        otherAnswer.style.maxHeight = '0';
+                    }
+                });
+                
+                // Toggle el item actual
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        }
+    });
+}
+
+// ======================================
+// CONTADOR REGRESIVO (PARA PÁGINAS DE VENTAS)
+// ======================================
+
+function initCountdown(targetDate) {
+    const countdownElement = document.getElementById('countdown');
+    if (!countdownElement) return;
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+            countdownElement.innerHTML = "¡Oferta expirada!";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Ejecutar inmediatamente
+    
+    return interval;
+}
+
+// ======================================
+// TRACKING DE EVENTOS (OPCIONAL)
+// ======================================
+
+function trackEvent(eventName, eventData = {}) {
+    // Aquí puedes integrar Google Analytics, Facebook Pixel, etc.
+    console.log('Event tracked:', eventName, eventData);
+    
+    // Ejemplo para Google Analytics 4
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, eventData);
+    }
+    
+    // Ejemplo para Facebook Pixel
+    if (typeof fbq !== 'undefined') {
+        fbq('track', eventName, eventData);
+    }
+}
+
+// ======================================
+// INICIALIZACIÓN
+// ======================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar todas las funcionalidades
+    initNavbarEffects();
+    initMobileMenu();
+    initSmoothScroll();
+    initContactForm();
+    initScrollAnimations();
+    initGlassButtonEffects();
+    initUrgencyEffects();
+    initFAQAccordion();
+    
+    // Agregar animación de entrada a los elementos glass
+    setTimeout(() => {
+        document.querySelectorAll('.glass-container').forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.1}s`;
+            el.classList.add('fade-in-up');
+        });
+    }, 100);
+    
+    console.log('🚀 JavaScript de Javier Millán cargado correctamente');
+});
+
+// ======================================
+// CSS ANIMATIONS (INJECT TO HEAD)
+// ======================================
+
+function injectAnimations() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.open .faq-answer {
+            transition: max-height 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Inyectar animaciones cuando se carga el DOM
+document.addEventListener('DOMContentLoaded', injectAnimations);
