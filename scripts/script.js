@@ -7,7 +7,8 @@ const CONFIG = {
     navbar: {
         scrollThreshold: 50,
         blurIntense: 'blur(20px)',
-        blurNormal: 'blur(16px)'
+        blurNormal: 'blur(8px)',
+        blurNone: 'blur(0px)'
     },
     animations: {
         scrollOffset: -100,
@@ -21,15 +22,15 @@ const CONFIG = {
 // ======================================
 
 function initNavbarEffects() {
-    const navbar = document.getElementById('navbar');
+    const navbar = document.getElementById('navbar-container');
     if (!navbar) return;
 
     window.addEventListener('scroll', function() {
         if (window.scrollY > CONFIG.navbar.scrollThreshold) {
-            navbar.style.backdropFilter = CONFIG.navbar.blurIntense;
-            navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+            //navbar.style.backdropFilter = CONFIG.navbar.blurIntense;
+            //navbar.style.background = 'rgba(0, 0, 0, 0.8)';
         } else {
-            navbar.style.backdropFilter = CONFIG.navbar.blurNormal;
+            //navbar.style.backdropFilter = CONFIG.navbar.blurNormal;
             navbar.style.background = 'transparent';
         }
     });
@@ -411,3 +412,229 @@ function injectAnimations() {
 
 // Inyectar animaciones cuando se carga el DOM
 document.addEventListener('DOMContentLoaded', injectAnimations);
+
+// ======================================
+// FUNCIONALIDAD DROPDOWN EBOOKS
+// ======================================
+
+function initEbooksDropdown() {
+    const dropdownTrigger = document.querySelector('.ebooks-nav-section');
+    const dropdown = document.querySelector('.ebooks-dropdown');
+    
+    if (!dropdownTrigger || !dropdown) return;
+    
+    let isDropdownOpen = false;
+    let hideTimeout;
+    
+    // Función para mostrar dropdown
+    function showDropdown() {
+        clearTimeout(hideTimeout);
+        isDropdownOpen = true;
+        dropdown.style.opacity = '1';
+        dropdown.style.visibility = 'visible';
+        dropdown.style.transform = 'translateY(0)';
+    }
+    
+    // Función para ocultar dropdown
+    function hideDropdown() {
+        hideTimeout = setTimeout(() => {
+            isDropdownOpen = false;
+            dropdown.style.opacity = '0';
+            dropdown.style.visibility = 'hidden';
+            dropdown.style.transform = 'translateY(0.5rem)';
+        }, 150); // Pequeño delay para mejor UX
+    }
+    
+    // Event listeners para desktop
+    dropdownTrigger.addEventListener('mouseenter', showDropdown);
+    dropdownTrigger.addEventListener('mouseleave', hideDropdown);
+    
+    // Mantener dropdown abierto cuando el mouse está sobre él
+    dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimeout);
+    });
+    dropdown.addEventListener('mouseleave', hideDropdown);
+    
+    // Cerrar dropdown al hacer click fuera
+    document.addEventListener('click', (e) => {
+        if (!dropdownTrigger.contains(e.target) && !dropdown.contains(e.target)) {
+            hideDropdown();
+        }
+    });
+    
+    // Manejo del teclado para accesibilidad
+    dropdownTrigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (isDropdownOpen) {
+                hideDropdown();
+            } else {
+                showDropdown();
+            }
+        }
+        
+        if (e.key === 'Escape') {
+            hideDropdown();
+        }
+    });
+}
+
+// ======================================
+// TRACKING DE EVENTOS PARA EBOOKS
+// ======================================
+
+function initEbooksTracking() {
+    // Tracking cuando se abre el dropdown
+    const ebooksLink = document.querySelector('a[href="#productos"]');
+    if (ebooksLink) {
+        ebooksLink.addEventListener('click', () => {
+            trackEvent('ebooks_section_viewed', {
+                source: 'navbar_dropdown',
+                timestamp: Date.now()
+            });
+        });
+    }
+    
+    // Tracking de clics en ebooks específicos
+    document.querySelectorAll('.ebook-item').forEach((item, index) => {
+        item.addEventListener('click', () => {
+            const ebookTitle = item.querySelector('.ebook-title')?.textContent || `ebook_${index}`;
+            trackEvent('ebook_clicked', {
+                ebook_title: ebookTitle,
+                source: 'navbar_dropdown',
+                position: index + 1
+            });
+        });
+    });
+}
+
+// ======================================
+// EFECTOS VISUALES MEJORADOS
+// ======================================
+
+function initEbooksVisualEffects() {
+    // Efecto de pulse en el emoji del ebook
+    const ebookIcons = document.querySelectorAll('.ebook-icon');
+    
+    ebookIcons.forEach(icon => {
+        let pulseInterval;
+        
+        icon.addEventListener('mouseenter', () => {
+            pulseInterval = setInterval(() => {
+                icon.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1)';
+                }, 150);
+            }, 300);
+        });
+        
+        icon.addEventListener('mouseleave', () => {
+            clearInterval(pulseInterval);
+            icon.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Efecto de brillo en badges
+    const badges = document.querySelectorAll('.free-badge, .price-badge');
+    badges.forEach(badge => {
+        badge.addEventListener('mouseenter', () => {
+            badge.style.boxShadow = '0 0 15px rgba(59, 130, 246, 0.5)';
+        });
+        
+        badge.addEventListener('mouseleave', () => {
+            badge.style.boxShadow = 'none';
+        });
+    });
+}
+
+// ======================================
+// MOBILE MENU CON EBOOKS
+// ======================================
+
+function updateMobileMenuWithEbooks() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (!mobileMenuBtn || !mobileMenu) return;
+    
+    // Función para toggle del menú móvil (actualizada)
+    function toggleMobileMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            // Animar entrada de items
+            const menuItems = mobileMenu.querySelectorAll('a, .mobile-ebook-section');
+            menuItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.3s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, index * 50);
+            });
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
+        
+        // Cambiar icono
+        const icon = mobileMenuBtn.querySelector('svg');
+        if (icon) {
+            if (isHidden) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            }
+        }
+    }
+    
+    // Reemplazar el event listener existente
+    mobileMenuBtn.replaceWith(mobileMenuBtn.cloneNode(true));
+    document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+}
+
+// ======================================
+// INICIALIZACIÓN EXTENDIDA
+// ======================================
+
+// Añadir a la función de inicialización principal
+document.addEventListener('DOMContentLoaded', function() {
+    // Ejecutar después de que se carguen las funciones base
+    setTimeout(() => {
+        initEbooksDropdown();
+        initEbooksTracking();
+        initEbooksVisualEffects();
+        updateMobileMenuWithEbooks();
+        
+        console.log('✅ Funcionalidad de Ebooks inicializada');
+    }, 100);
+});
+
+// ======================================
+// UTILIDADES ESPECÍFICAS PARA EBOOKS
+// ======================================
+
+function scrollToEbooks() {
+    const ebooksSection = document.getElementById('productos');
+    if (ebooksSection) {
+        ebooksSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Highlight temporal de la sección
+        ebooksSection.style.boxShadow = '0 0 30px rgba(59, 130, 246, 0.3)';
+        setTimeout(() => {
+            ebooksSection.style.boxShadow = '';
+        }, 2000);
+    }
+}
+
+// Función para abrir modal de ebook (para futuras implementaciones)
+function openEbookModal(ebookId) {
+    trackEvent('ebook_modal_opened', { ebook_id: ebookId });
+    
+    // Aquí puedes añadir la lógica para abrir un modal con más detalles
+    console.log(`Abriendo modal para ebook: ${ebookId}`);
+}

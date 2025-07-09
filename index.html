@@ -10,7 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- CSS personalizado para efectos liquid glass -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,15 +36,12 @@
 <body class="bg-zinc-900 text-white font-sans antialiased">
     <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-6 py-4">
+        <div id="navbar-container" class="container mx-auto px-6 py-4">
             <div class="glass-container p-4">
-                <div class="flex items-center justify-between">
+                <div class="flex content-evenly justify-between">
                     <!-- Logo/Nombre -->
-                    <div class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-sm">
-                            JM
-                        </div>
-                        <span class="font-bold text-lg">Javier Millán</span>
+                    <div class="flex md:flex-1">
+                        <img src="assets/imgs/logo.png" alt="" class="w-2/4 object-cover">
                     </div>
                     
                     <!-- Menu Desktop -->
@@ -52,6 +49,75 @@
                         <a href="#inicio" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Inicio</a>
                         <a href="#acerca" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Acerca de Mí</a>
                         <a href="#servicios" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Servicios</a>
+                        <!-- NUEVA OPCIÓN DE EBOOKS -->
+                        <div class="relative group">
+                            <a href="#productos" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors flex items-center space-x-1">
+                                <span>📚 Ebooks</span>
+                                <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </a>
+                            
+                            <!-- Dropdown Menu MEJORADO -->
+                            <div class="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0" style="z-index: 9999;">
+                                <div class="glass-container p-4">
+                                    <div class="space-y-3">
+                                        <!-- eBook 1 - GRATIS -->
+                                        <a href="#productos" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-green-500/30">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
+                                                    📖
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-bold group-hover/item:text-blue-400 flex items-center">
+                                                        Páginas de Internet en 1H
+                                                        <span class="ml-2 text-xs bg-green-500 text-white px-2 py-1 rounded-full font-bold">GRATIS</span>
+                                                    </div>
+                                                    <div class="text-xs text-zinc-400 mt-1">HTML, CSS, JS desde cero</div>
+                                                    <div class="text-xs text-green-400 font-medium mt-1">⚡ Acceso inmediato</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <!-- eBook 2 - PREMIUM -->
+                                        <a href="#productos" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-orange-500/30">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
+                                                    🗺️
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-bold group-hover/item:text-orange-400 flex items-center">
+                                                        Planos Secretos de la Web
+                                                        <span class="ml-2 text-xs bg-orange-500 text-white px-2 py-1 rounded-full font-bold">$97</span>
+                                                    </div>
+                                                    <div class="text-xs text-zinc-400 mt-1">3 Layouts profesionales</div>
+                                                    <div class="text-xs text-orange-400 font-medium mt-1">🚀 Más avanzado</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <!-- Separador -->
+                                        <div class="border-t border-white/10 my-2"></div>
+                                        
+                                        <!-- Stats mini -->
+                                        <div class="text-center text-xs text-zinc-400 mb-2">
+                                            <span class="inline-flex items-center space-x-1">
+                                                <span>⭐</span>
+                                                <span>500+ estudiantes</span>
+                                                <span>•</span>
+                                                <span>4.9/5 rating</span>
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- CTA Principal -->
+                                        <button class="w-full glass-button py-3 text-sm font-bold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-blue-500 to-purple-600">
+                                            📚 Ver Todos los Ebooks
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN NUEVA OPCIÓN DE EBOOKS -->
                         <a href="#comunidad" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">La Red de Luz</a>
                         <a href="#testimonios" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Testimonios</a>
                         <a href="#contacto" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Contacto</a>
@@ -72,11 +138,27 @@
                     </button>
                 </div>
                 
-                <!-- Menu móvil -->
+                <!-- Menu móvil ACTUALIZADO -->
                 <div class="md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
                     <a href="#inicio" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Inicio</a>
                     <a href="#acerca" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Acerca de Mí</a>
                     <a href="#servicios" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Servicios</a>
+                    
+                    <!-- Ebooks en móvil -->
+                    <div class="py-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-blue-400">📚 Ebooks</span>
+                        </div>
+                        <div class="ml-4 mt-2 space-y-2">
+                            <a href="#productos" class="block py-1 text-xs text-zinc-300 hover:text-blue-400 transition-colors">
+                                📖 Páginas de Internet en 1H (GRATIS)
+                            </a>
+                            <a href="#productos" class="block py-1 text-xs text-zinc-300 hover:text-orange-400 transition-colors">
+                                🗺️ Planos Secretos de la Web ($97)
+                            </a>
+                        </div>
+                    </div>
+                    
                     <a href="#comunidad" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">La Red de Luz</a>
                     <a href="#testimonios" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Testimonios</a>
                     <a href="#contacto" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Contacto</a>
@@ -99,7 +181,7 @@
             <!-- Foto de perfil placeholder -->
             <div class="glass-avatar w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 rounded-full overflow-hidden">
                 <!-- Placeholder para tu foto - reemplazar con imagen real -->
-                <img src="https://via.placeholder.com/200x200/3b82f6/ffffff?text=Javier" alt="Javier Millán" class="w-full h-full object-cover">
+                <img src="assets/imgs/profile.png" alt="Javier Millán - Ingeniero en Software" class="w-full object-cover">
             </div>
             
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -195,9 +277,9 @@
                         <!-- Placeholder para foto adicional -->
                         <div class="glass-container p-6">
                             <div class="w-full h-64 rounded-lg overflow-hidden">
-                                <img src="https://via.placeholder.com/400x300/8b5cf6/ffffff?text=Trabajando" 
+                                <img src="assets/imgs/aprendiendo.jpg" 
                                      alt="Javier trabajando" 
-                                     class="w-full h-full object-cover">
+                                     class="object-cover">
                             </div>
                         </div>
                         
@@ -437,10 +519,8 @@
                     <!-- Contenido de la comunidad -->
                     <div class="glass-container p-8 md:p-12">
                         <!-- Ícono de comunidad -->
-                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-8">
-                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
+                        <div class="w-40 h-40 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center mb-8">
+                            <img src="assets/imgs/reddeluz.png" alt="red de luz" class="w-33 h-33 p-2 object-cover">
                         </div>
                         
                         <h2 class="text-3xl md:text-4xl font-bold mb-6">
@@ -477,9 +557,9 @@
                     <div class="space-y-6">
                         <div class="glass-container p-6">
                             <div class="w-full h-64 rounded-lg overflow-hidden">
-                                <img src="https://via.placeholder.com/500x300/fbbf24/ffffff?text=La+Red+de+Luz" 
+                                <img src="assets/imgs/community.jpg" 
                                      alt="La Red de Luz Community" 
-                                     class="w-full h-full object-cover">
+                                     class="w-full h-auto">
                             </div>
                         </div>
                         
@@ -736,6 +816,6 @@
     </footer>
 
     <!-- JavaScript externo -->
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>
