@@ -37,11 +37,11 @@
     <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
         <div id="navbar-container" class="container mx-auto px-6 py-4">
-            <div class="glass-container p-4">
+            <div class="glass-container p-2">
                 <div class="flex content-evenly justify-between">
                     <!-- Logo/Nombre -->
                     <div class="flex md:flex-1">
-                        <img src="assets/imgs/logo.png" alt="" class="w-2/4 object-cover">
+                        <img src="assets/imgs/logo.png" alt="" class="h-12 w-auto object-contain max-w-[120px]">
                     </div>
                     
                     <!-- Menu Desktop -->
@@ -124,8 +124,8 @@
                     </div>
                     
                     <!-- Botón CTA -->
-                    <div class="hidden md:block">
-                        <button class="glass-button px-4 py-2 text-sm font-semibold">
+                    <div class="hidden md:flex items-center ml-6 xl:ml-8">
+                        <button class="glass-button px-6 py-2 text-sm font-semibold whitespace-nowrap">
                             Conectar
                         </button>
                     </div>
@@ -215,13 +215,6 @@
                 <span class="glass-card px-3 py-1 rounded-full">Marketing</span>
                 <span class="glass-card px-3 py-1 rounded-full">Diseño Gráfico</span>
                 <span class="glass-card px-3 py-1 rounded-full">Desarrollo Personal</span>
-            </div>
-            
-            <!-- Indicador de scroll -->
-            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <svg class="w-6 h-6 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
             </div>
         </div>
     </section>
@@ -412,7 +405,7 @@
                                 <span class="line-through text-zinc-500 text-xl">$497</span>
                                 <span class="text-orange-400 ml-2">$97 MXN</span>
                             </div>
-                            <button class="glass-button w-full py-3 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-orange-500 to-red-600" onclick="window.open('/ebook2-planos-secretos.html', '_blank')">
+                            <button class="glass-button w-full py-3 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-orange-500 to-red-600" onclick="window.open('/ebook2-planos-secretos.html')">
                                 🚀 Comprar Ahora
                             </button>
                             <p class="text-xs text-zinc-400">* Acceso inmediato después del pago</p>
@@ -548,8 +541,9 @@
                             </div>
                         </div>
                         
-                        <button class="glass-button w-full py-4 text-lg font-semibold transition-all duration-300 hover:scale-105">
-                            🌟 Únete al Discord
+                        <button class="glass-button w-full py-4 text-lg font-semibold transition-all duration-300 hover:scale-105" 
+                        onclick="window.open('https://lareddeluz.com', '_blank')">
+                            🌟 Ir a la Red de Luz
                         </button>
                     </div>
                     
