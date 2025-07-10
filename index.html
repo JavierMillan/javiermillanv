@@ -60,10 +60,10 @@
                             
                             <!-- Dropdown Menu MEJORADO -->
                             <div class="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0" style="z-index: 9999;">
-                                <div class="glass-container p-4">
+                                <div class="glass-container menu-container p-4">
                                     <div class="space-y-3">
                                         <!-- eBook 1 - GRATIS -->
-                                        <a href="#productos" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-green-500/30">
+                                        <a href="#ebook1" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-green-500/30">
                                             <div class="flex items-center space-x-3">
                                                 <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
                                                     📖
@@ -80,7 +80,7 @@
                                         </a>
                                         
                                         <!-- eBook 2 - PREMIUM -->
-                                        <a href="#productos" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-orange-500/30">
+                                        <a href="#ebook2" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-orange-500/30">
                                             <div class="flex items-center space-x-3">
                                                 <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
                                                     🗺️
@@ -150,10 +150,10 @@
                             <span class="text-sm font-medium text-blue-400">📚 Ebooks</span>
                         </div>
                         <div class="ml-4 mt-2 space-y-2">
-                            <a href="#productos" class="block py-1 text-xs text-zinc-300 hover:text-blue-400 transition-colors">
+                            <a href="#ebook1" class="block py-1 text-xs text-zinc-300 hover:text-blue-400 transition-colors">
                                 📖 Páginas de Internet en 1H (GRATIS)
                             </a>
-                            <a href="#productos" class="block py-1 text-xs text-zinc-300 hover:text-orange-400 transition-colors">
+                            <a href="#ebook2" class="block py-1 text-xs text-zinc-300 hover:text-orange-400 transition-colors">
                                 🗺️ Planos Secretos de la Web ($97)
                             </a>
                         </div>
@@ -178,9 +178,7 @@
         
         <!-- Contenido principal del hero -->
         <div class="relative z-10 text-center max-w-5xl mx-auto px-6">
-            <!-- Foto de perfil placeholder -->
             <div class="glass-avatar w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 rounded-full overflow-hidden">
-                <!-- Placeholder para tu foto - reemplazar con imagen real -->
                 <img src="assets/imgs/profile.png" alt="Javier Millán - Ingeniero en Software" class="w-full object-cover">
             </div>
             
@@ -267,7 +265,6 @@
                     
                     <!-- Imagen y skills -->
                     <div class="space-y-8">
-                        <!-- Placeholder para foto adicional -->
                         <div class="glass-container p-6">
                             <div class="w-full h-64 rounded-lg overflow-hidden">
                                 <img src="assets/imgs/aprendiendo.jpg" 
@@ -341,7 +338,7 @@
                 <!-- Grid de eBooks -->
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- eBook 1: Entiende las páginas de Internet en 1 Hora -->
-                    <div class="glass-container p-8 group hover:scale-105 transition-all duration-300">
+                    <div id="ebook1" class="glass-container p-8 group hover:scale-105 transition-all duration-300">
                         <div class="text-center mb-6">
                             <!-- Mockup del libro -->
                             <div class="w-32 h-40 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-2xl transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
@@ -377,7 +374,7 @@
                     </div>
                     
                     <!-- eBook 2: Los Planos Secretos de la Web -->
-                    <div class="glass-container p-8 group hover:scale-105 transition-all duration-300">
+                    <div id="ebook2" class="glass-container p-8 group hover:scale-105 transition-all duration-300">
                         <div class="text-center mb-6">
                             <!-- Mockup del libro -->
                             <div class="w-32 h-40 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-2xl transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
@@ -704,9 +701,9 @@
                         <!-- Foto de contacto -->
                         <div class="glass-container p-6">
                             <div class="w-full h-48 rounded-lg overflow-hidden mb-4">
-                                <img src="https://via.placeholder.com/400x250/3b82f6/ffffff?text=Conectemos" 
+                                <img src="assets/imgs/teamwork.jpg" 
                                      alt="Contacto Javier" 
-                                     class="w-full h-full object-cover">
+                                     class="w-full h-auto object-cover">
                             </div>
                             <p class="text-zinc-300 text-center">
                                 "Cada conexión es una oportunidad de crecimiento mutuo"

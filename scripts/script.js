@@ -638,3 +638,194 @@ function openEbookModal(ebookId) {
     // Aquí puedes añadir la lógica para abrir un modal con más detalles
     console.log(`Abriendo modal para ebook: ${ebookId}`);
 }
+
+// ======================================
+// DROPDOWN INDEPENDIENTE PARA EBOOKS
+// ======================================
+
+function initIndependentEbooksDropdown() {
+    const trigger = document.getElementById('ebooks-trigger');
+    const dropdown = document.getElementById('ebooks-dropdown');
+    const overlay = document.getElementById('dropdown-overlay');
+    const arrow = document.getElementById('ebooks-arrow');
+    
+    if (!trigger || !dropdown || !overlay || !arrow) return;
+    
+    let isOpen = false;
+    let hideTimeout;
+    
+    // Función para calcular posición del dropdown
+    function calculateDropdownPosition() {
+        const triggerRect = trigger.getBoundingClientRect();
+        const dropdownWidth = 300;
+        const viewportWidth = window.innerWidth;
+        
+        // Posición vertical
+        dropdown.style.top = (triggerRect.bottom + 8) + 'px';
+        
+        // Posición horizontal
+        let leftPosition = triggerRect.left;
+        
+        // Si se sale por la derecha, ajustar
+        if (leftPosition + dropdownWidth > viewportWidth - 20) {
+            leftPosition = viewportWidth - dropdownWidth - 20;
+        }
+        
+        // Si se sale por la izquierda, ajustar
+        if (leftPosition < 20) {
+            leftPosition = 20;
+        }
+        
+        dropdown.style.left = leftPosition + 'px';
+    }
+    
+    // Función para mostrar dropdown
+    function showDropdown() {
+        clearTimeout(hideTimeout);
+        calculateDropdownPosition();
+        
+        dropdown.classList.add('show');
+        overlay.classList.add('show');
+        arrow.style.transform = 'rotate(180deg)';
+        isOpen = true;
+        
+        // Tracking
+        if (typeof trackEvent === 'function') {
+            trackEvent('ebooks_dropdown_opened', {
+                source: 'navbar',
+                timestamp: Date.now()
+            });
+        }
+    }
+    
+    // Función para ocultar dropdown
+    function hideDropdown() {
+        hideTimeout = setTimeout(() => {
+            dropdown.classList.remove('show');
+            overlay.classList.remove('show');
+            arrow.style.transform = 'rotate(0deg)';
+            isOpen = false;
+        }, 150);
+    }
+    
+    // Event listeners
+    trigger.addEventListener('mouseenter', showDropdown);
+    trigger.addEventListener('mouseleave', hideDropdown);
+    
+    // Mantener abierto cuando mouse está sobre dropdown
+    dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimeout);
+    });
+    dropdown.addEventListener('mouseleave', hideDropdown);
+    
+    // Cerrar con overlay
+    overlay.addEventListener('click', hideDropdown);
+    
+    // Cerrar con Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+            hideDropdown();
+        }
+    });
+    
+    // Click en trigger para toggle (útil en móvil)
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isOpen) {
+            hideDropdown();
+        } else {
+            showDropdown();
+        }
+    });
+    
+    // Recalcular posición en resize
+    window.addEventListener('resize', () => {
+        if (isOpen) {
+            calculateDropdownPosition();
+        }
+    });
+    
+    // Recalcular posición en scroll
+    window.addEventListener('scroll', () => {
+        if (isOpen) {
+            calculateDropdownPosition();
+        }
+    });
+    
+    console.log('✅ Dropdown independiente de Ebooks inicializado');
+}
+
+// ======================================
+// TRACKING MEJORADO PARA EBOOKS
+// ======================================
+
+function initEbooksClickTracking() {
+    // Tracking de clics en ebooks específicos
+    document.querySelectorAll('#ebooks-dropdown a[href="#productos"]').forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            const ebookTitle = link.querySelector('.text-sm')?.textContent || `ebook_${index}`;
+            const isGratis = link.textContent.includes('GRATIS');
+            
+            if (typeof trackEvent === 'function') {
+                trackEvent('ebook_clicked', {
+                    ebook_title: ebookTitle,
+                    is_free: isGratis,
+                    source: 'navbar_dropdown',
+                    position: index + 1
+                });
+            }
+        });
+    });
+    
+    // Tracking del botón "Ver Todos los Ebooks"
+    const viewAllBtn = document.querySelector('#ebooks-dropdown button');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', () => {
+            if (typeof trackEvent === 'function') {
+                trackEvent('view_all_ebooks_clicked', {
+                    source: 'navbar_dropdown'
+                });
+            }
+        });
+    }
+}
+
+// ======================================
+// INICIALIZACIÓN
+// ======================================
+
+// Añadir a la inicialización principal
+document.addEventListener('DOMContentLoaded', function() {
+    // Ejecutar después de que se carguen las funciones base
+    setTimeout(() => {
+        initIndependentEbooksDropdown();
+        initEbooksClickTracking();
+        
+        console.log('🚀 Sistema de dropdown independiente cargado');
+    }, 100);
+});
+
+// ======================================
+// UTILIDADES ADICIONALES
+// ======================================
+
+// Función para cerrar dropdown programáticamente
+function closeEbooksDropdown() {
+    const dropdown = document.getElementById('ebooks-dropdown');
+    const overlay = document.getElementById('dropdown-overlay');
+    const arrow = document.getElementById('ebooks-arrow');
+    
+    if (dropdown && overlay && arrow) {
+        dropdown.classList.remove('show');
+        overlay.classList.remove('show');
+        arrow.style.transform = 'rotate(0deg)';
+    }
+}
+
+// Función para abrir dropdown programáticamente
+function openEbooksDropdown() {
+    const trigger = document.getElementById('ebooks-trigger');
+    if (trigger) {
+        trigger.dispatchEvent(new Event('mouseenter'));
+    }
+}
