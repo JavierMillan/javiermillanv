@@ -3,810 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javier Millán - Ingeniero en Software & Aprendiz Eterno</title>
-    <meta name="description" content="Ingeniero en Software, diseñador web y aprendiz eterno. Explorando desarrollo personal, fotografía, psicología y más. Únete a La Red de Luz.">
-    
-    <!-- Tailwind CSS -->
+    <script>document.documentElement.classList.add('js');</script>
+    <title>Javier Millán — Entre la ingeniería y todo lo demás</title>
+    <meta name="description" content="Javier Millán: ingeniero de software y aprendiz eterno. Construyo sistemas, equipos y ecosistemas — y exploro casi todo lo demás. Mi historia, mi obra y La Red de Luz.">
+    <meta name="theme-color" content="#f3efe5">
+
+    <link rel="canonical" href="https://javiermillanv.com/">
+    <link rel="icon" href="assets/imgs/logo.png">
+
+    <meta property="og:title" content="Javier Millán — Entre la ingeniería y todo lo demás">
+    <meta property="og:description" content="Ingeniero de software y aprendiz eterno. Mi historia, mi obra y La Red de Luz.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://javiermillanv.com/">
+    <meta property="og:image" content="https://javiermillanv.com/assets/imgs/profile.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- CSS personalizado para efectos liquid glass -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Configuración de Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        'glass-blue': '#3b82f6',
-                        'glass-purple': '#8b5cf6',
-                        'glass-pink': '#ec4899',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-zinc-900 text-white font-sans antialiased">
+<body>
+
+    <!-- CURSOR + IMAGEN FLOTANTE -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="reveal-img" aria-hidden="true"></div>
+
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-        <div id="navbar-container" class="container mx-auto px-6 py-4">
-            <div class="glass-container p-2">
-                <div class="flex content-evenly justify-between">
-                    <!-- Logo/Nombre -->
-                    <div class="flex md:flex-1">
-                        <img src="assets/imgs/logo.png" alt="" class="h-12 w-auto object-contain max-w-[120px]">
-                    </div>
-                    
-                    <!-- Menu Desktop -->
-                    <div class="hidden md:flex items-center space-x-8">
-                        <a href="#inicio" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Inicio</a>
-                        <a href="#acerca" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Acerca de Mí</a>
-                        <a href="#servicios" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Servicios</a>
-                        <!-- NUEVA OPCIÓN DE EBOOKS -->
-                        <div class="relative group">
-                            <a href="#productos" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors flex items-center space-x-1">
-                                <span>📚 Ebooks</span>
-                                <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </a>
-                            
-                            <!-- Dropdown Menu MEJORADO -->
-                            <div class="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0" style="z-index: 9999;">
-                                <div class="glass-container menu-container p-4">
-                                    <div class="space-y-3">
-                                        <!-- eBook 1 - GRATIS -->
-                                        <a href="#ebook1" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-green-500/30">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
-                                                    📖
-                                                </div>
-                                                <div class="flex-1">
-                                                    <div class="text-sm font-bold group-hover/item:text-blue-400 flex items-center">
-                                                        Páginas de Internet en 1H
-                                                        <span class="ml-2 text-xs bg-green-500 text-white px-2 py-1 rounded-full font-bold">GRATIS</span>
-                                                    </div>
-                                                    <div class="text-xs text-zinc-400 mt-1">HTML, CSS, JS desde cero</div>
-                                                    <div class="text-xs text-green-400 font-medium mt-1">⚡ Acceso inmediato</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        
-                                        <!-- eBook 2 - PREMIUM -->
-                                        <a href="#ebook2" class="block p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group/item border border-transparent hover:border-orange-500/30">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-sm font-bold shadow-lg">
-                                                    🗺️
-                                                </div>
-                                                <div class="flex-1">
-                                                    <div class="text-sm font-bold group-hover/item:text-orange-400 flex items-center">
-                                                        Planos Secretos de la Web
-                                                        <span class="ml-2 text-xs bg-orange-500 text-white px-2 py-1 rounded-full font-bold">$97</span>
-                                                    </div>
-                                                    <div class="text-xs text-zinc-400 mt-1">3 Layouts profesionales</div>
-                                                    <div class="text-xs text-orange-400 font-medium mt-1">🚀 Más avanzado</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        
-                                        <!-- Separador -->
-                                        <div class="border-t border-white/10 my-2"></div>
-                                        
-                                        <!-- Stats mini -->
-                                        <div class="text-center text-xs text-zinc-400 mb-2">
-                                            <span class="inline-flex items-center space-x-1">
-                                                <span>⭐</span>
-                                                <span>500+ estudiantes</span>
-                                                <span>•</span>
-                                                <span>4.9/5 rating</span>
-                                            </span>
-                                        </div>
-                                        
-                                        <!-- CTA Principal -->
-                                        <button class="w-full glass-button py-3 text-sm font-bold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-blue-500 to-purple-600">
-                                            📚 Ver Todos los Ebooks
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- FIN NUEVA OPCIÓN DE EBOOKS -->
-                        <a href="#comunidad" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">La Red de Luz</a>
-                        <a href="#testimonios" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Testimonios</a>
-                        <a href="#contacto" class="nav-link text-sm font-medium hover:text-blue-400 transition-colors">Contacto</a>
-                    </div>
-                    
-                    <!-- Botón CTA -->
-                    <div class="hidden md:flex items-center ml-6 xl:ml-8">
-                        <button class="glass-button px-6 py-2 text-sm font-semibold whitespace-nowrap">
-                            Conectar
-                        </button>
-                    </div>
-                    
-                    <!-- Botón móvil -->
-                    <button class="md:hidden glass-button p-2" id="mobile-menu-btn">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Menu móvil ACTUALIZADO -->
-                <div class="md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
-                    <a href="#inicio" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Inicio</a>
-                    <a href="#acerca" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Acerca de Mí</a>
-                    <a href="#servicios" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Servicios</a>
-                    
-                    <!-- Ebooks en móvil -->
-                    <div class="py-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium text-blue-400">📚 Ebooks</span>
-                        </div>
-                        <div class="ml-4 mt-2 space-y-2">
-                            <a href="#ebook1" class="block py-1 text-xs text-zinc-300 hover:text-blue-400 transition-colors">
-                                📖 Páginas de Internet en 1H (GRATIS)
-                            </a>
-                            <a href="#ebook2" class="block py-1 text-xs text-zinc-300 hover:text-orange-400 transition-colors">
-                                🗺️ Planos Secretos de la Web ($97)
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <a href="#comunidad" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">La Red de Luz</a>
-                    <a href="#testimonios" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Testimonios</a>
-                    <a href="#contacto" class="block py-2 text-sm font-medium hover:text-blue-400 transition-colors">Contacto</a>
-                </div>
-            </div>
+    <header class="nav" id="nav">
+        <div class="wrap nav-in">
+            <a href="#inicio" class="logo">Javier <b>Millán</b></a>
+            <nav class="nav-links">
+                <a href="#historia" class="nav-link">Historia</a>
+                <a href="#filosofia" class="nav-link">Lo que me mueve</a>
+                <a href="#obra" class="nav-link">La obra</a>
+                <a href="#comunidad" class="nav-link">La Red de Luz</a>
+                <span class="magnetic"><a href="#conecta" class="btn btn-solid" style="padding:0.55rem 1.1rem; font-size:0.85rem;">Conecta</a></span>
+            </nav>
+            <button class="menu-btn" id="menu-btn" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
         </div>
+    </header>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
+        <a href="#historia">Historia</a>
+        <a href="#filosofia">Lo que me mueve</a>
+        <a href="#obra">La obra</a>
+        <a href="#comunidad">La Red de Luz</a>
+        <a href="#conecta">Conecta</a>
     </nav>
 
-    <!-- HERO SECTION ENFOCADO EN TI -->
-    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Fondo animado con elementos flotantes -->
-        <div class="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900">
-            <div class="floating-element floating-element-1"></div>
-            <div class="floating-element floating-element-2"></div>
-            <div class="floating-element floating-element-3"></div>
-        </div>
-        
-        <!-- Contenido principal del hero -->
-        <div class="relative z-10 text-center max-w-5xl mx-auto px-6">
-            <div class="glass-avatar w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 rounded-full overflow-hidden">
-                <img src="assets/imgs/profile.png" alt="Javier Millán - Ingeniero en Software" class="w-full object-cover">
-            </div>
-            
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Hola, soy <span class="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Javier Millán</span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-zinc-300 mb-4 max-w-3xl mx-auto leading-relaxed">
-                Ingeniero en Software, Diseñador Web y <strong class="text-white">Aprendiz Eterno</strong>
-            </p>
-            
-            <p class="text-lg md:text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
-                Explorando el mundo del desarrollo, fotografía, psicología, marketing y crecimiento personal. 
-                Creador de <span class="text-yellow-400">La Red de Luz</span>.
-            </p>
-            
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                <button class="glass-button px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105">
-                    🚀 Conoce mi trabajo
-                </button>
-                <button class="glass-button px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105">
-                    🌟 Únete a la comunidad
-                </button>
-            </div>
-            
-            <!-- Áreas de interés -->
-            <div class="flex flex-wrap justify-center gap-2 text-sm text-zinc-400">
-                <span class="glass-card px-3 py-1 rounded-full">Desarrollo Web</span>
-                <span class="glass-card px-3 py-1 rounded-full">Fotografía</span>
-                <span class="glass-card px-3 py-1 rounded-full">Psicología</span>
-                <span class="glass-card px-3 py-1 rounded-full">Marketing</span>
-                <span class="glass-card px-3 py-1 rounded-full">Diseño Gráfico</span>
-                <span class="glass-card px-3 py-1 rounded-full">Desarrollo Personal</span>
-            </div>
-        </div>
-    </section>
+    <main>
 
-    <!-- SECCIÓN ACERCA DE MÍ - EXPANDIDA -->
-    <section id="acerca" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <!-- Título de sección -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                        Mi <span class="text-blue-400">Historia</span>
-                    </h2>
-                    <p class="text-xl text-zinc-300 max-w-2xl mx-auto">
-                        Un viaje de aprendizaje constante y crecimiento personal
-                    </p>
-                </div>
-                
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Contenido principal -->
-                    <div class="glass-container p-8 md:p-12">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center lg:text-left">
-                            Ingeniero en Software · <span class="text-purple-400">Aprendiz Eterno</span>
-                        </h3>
-                        
-                        <div class="space-y-6 text-lg text-zinc-300 leading-relaxed">
-                            <p>
-                                Como <strong class="text-white">Ingeniero en Software</strong>, mi pasión por la tecnología 
-                                me llevó naturalmente al diseño web. Pero mi curiosidad no se detiene ahí.
-                            </p>
-                            
-                            <p>
-                                Soy un <strong class="text-white">aprendiz eterno</strong> que explora constantemente 
-                                nuevas disciplinas: desde fotografía y psicología hasta marketing y desarrollo personal. 
-                                Creo que el crecimiento viene de la intersección de diferentes conocimientos.
-                            </p>
-                            
-                            <p>
-                                Esta filosofía me llevó a crear <strong class="text-yellow-400">La Red de Luz</strong>, 
-                                una comunidad donde compartimos no solo conocimientos técnicos, sino también herramientas 
-                                para el crecimiento integral: espiritual, mental, emocional y físico.
-                            </p>
-                            
-                            <p class="text-blue-400 font-medium">
-                                "La tecnología es solo una herramienta. Lo que realmente importa es cómo la usamos 
-                                para crear conexiones auténticas y generar valor en el mundo."
-                            </p>
+        <!-- HERO -->
+        <section class="hero" id="inicio">
+            <div class="wrap">
+                <p class="mono-label up">Ingeniero de software · Aprendiz eterno · Guadalajara, MX</p>
+                <h1 class="hero-title" style="margin-top:1.6rem;">
+                    <span class="l"><span>Entre la</span></span>
+                    <span class="l"><span>ingeniería</span></span>
+                    <span class="l"><span class="accent">y todo lo demás.</span></span>
+                </h1>
+                <div class="hero-foot">
+                    <div>
+                        <p class="hero-sub up d1">Construyo sistemas, equipos y ecosistemas — y exploro casi todo lo demás: fotografía, psicología, escritura, diseño.</p>
+                        <div class="chips up d2" style="margin-top:1.4rem;">
+                            <span class="chip">~10 años en sistemas</span>
+                            <span class="chip">Fundador de La Red de Luz</span>
+                            <span class="chip">Acción &gt; análisis</span>
                         </div>
                     </div>
-                    
-                    <!-- Imagen y skills -->
-                    <div class="space-y-8">
-                        <div class="glass-container p-6">
-                            <div class="w-full h-64 rounded-lg overflow-hidden">
-                                <img src="assets/imgs/aprendiendo.jpg" 
-                                     alt="Javier trabajando" 
-                                     class="object-cover">
-                            </div>
-                        </div>
-                        
-                        <!-- Áreas de aprendizaje -->
-                        <div class="glass-container p-6">
-                            <h4 class="text-xl font-bold mb-4 text-center">Áreas de Exploración</h4>
-                            <div class="grid grid-cols-2 gap-4 text-sm">
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-blue-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">💻</span>
-                                    </div>
-                                    <span class="font-medium">Desarrollo Web</span>
-                                </div>
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-purple-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">📷</span>
-                                    </div>
-                                    <span class="font-medium">Fotografía</span>
-                                </div>
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-pink-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">🧠</span>
-                                    </div>
-                                    <span class="font-medium">Psicología</span>
-                                </div>
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-green-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">📈</span>
-                                    </div>
-                                    <span class="font-medium">Marketing</span>
-                                </div>
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-yellow-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">🎨</span>
-                                    </div>
-                                    <span class="font-medium">Diseño Gráfico</span>
-                                </div>
-                                <div class="glass-card p-3 text-center">
-                                    <div class="w-8 h-8 bg-red-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                        <span class="text-xs font-bold">💰</span>
-                                    </div>
-                                    <span class="font-medium">Ventas</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="up d2" style="display:flex; gap:0.7rem; flex-wrap:wrap;">
+                        <span class="magnetic"><a href="#conecta" class="btn btn-accent">Conecta conmigo</a></span>
+                        <a href="#historia" class="btn btn-line">Mi historia</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="scroll-cue" aria-hidden="true"><span class="ln"></span><span class="mono-label">Scroll</span></div>
+        </section>
 
-    <!-- SECCIÓN DE PRODUCTOS DIGITALES -->
-    <section id="productos" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <!-- Título de sección -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                        Mis <span class="text-blue-400">eBooks</span>
-                    </h2>
-                    <p class="text-xl text-zinc-300 max-w-2xl mx-auto">
-                        Guías prácticas para dominar el desarrollo web desde cero
-                    </p>
-                </div>
-                
-                <!-- Grid de eBooks -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- eBook 1: Entiende las páginas de Internet en 1 Hora -->
-                    <div id="ebook1" class="glass-container p-8 group hover:scale-105 transition-all duration-300">
-                        <div class="text-center mb-6">
-                            <!-- Mockup del libro -->
-                            <div class="w-32 h-40 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-2xl transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
-                                <div class="text-white font-bold text-xs px-2">
-                                    HTML<br/>CSS<br/>JS
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3 class="text-2xl font-bold mb-4 text-center">Entiende las Páginas de Internet en 1 Hora</h3>
-                        
-                        <div class="space-y-3 text-zinc-300 mb-6">
-                            <p class="text-center text-lg font-medium text-blue-400">De Cero a Héroe del Diseño Web</p>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Aprende HTML, CSS y JavaScript básico</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Crea tu primera página web funcional</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Entiende cómo funciona Internet</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Manipula el DOM con JavaScript</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Sin tecnicismos, puro conocimiento práctico</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="text-center space-y-4">
-                            <div class="text-3xl font-bold text-white">
-                                <span class="line-through text-zinc-500 text-xl">$297</span>
-                                <span class="text-green-400 ml-2">GRATIS</span>
-                            </div>
-                            <button class="glass-button w-full py-3 text-lg font-semibold transition-all duration-300 hover:scale-105" onclick="window.open('/ebook1-gratis.html', '_blank')">
-                                📚 Descargar GRATIS
-                            </button>
-                            <p class="text-xs text-zinc-400">* No se requiere tarjeta de crédito</p>
+        <!-- MARQUEE -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-row">
+                <span>Sistemas</span><span>Ingeniería</span><span>Fotografía</span><span>Psicología</span><span>Escritura</span><span>Comunidad</span><span>Acción &gt; análisis</span>
+                <span>Sistemas</span><span>Ingeniería</span><span>Fotografía</span><span>Psicología</span><span>Escritura</span><span>Comunidad</span><span>Acción &gt; análisis</span>
+            </div>
+        </div>
+
+        <!-- 01 · MI HISTORIA -->
+        <section class="section" id="historia">
+            <div class="wrap">
+                <p class="mono-label up">01 — Mi historia</p>
+                <h2 class="lead up d1" style="margin-top:1.2rem; max-width:22ch;">Dejé de buscar una tribu. <span class="accent">Decidí construirla.</span></h2>
+
+                <div class="grid lg:grid-cols-12 gap-12" style="margin-top:3.5rem;">
+                    <div class="lg:col-span-5 up">
+                        <div class="photo r-4x5 photo-sticky">
+                            <img src="assets/imgs/profile.png" alt="Javier Millán" data-speed="0.4">
                         </div>
                     </div>
-                    
-                    <!-- eBook 2: Los Planos Secretos de la Web -->
-                    <div id="ebook2" class="glass-container p-8 group hover:scale-105 transition-all duration-300">
-                        <div class="text-center mb-6">
-                            <!-- Mockup del libro -->
-                            <div class="w-32 h-40 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-2xl transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-                                <div class="text-white font-bold text-xs px-2 text-center">
-                                    HTML<br/>LAYOUTS<br/>SECRETS
-                                </div>
-                            </div>
+                    <div class="lg:col-span-7">
+                        <div class="story-body up d1">
+                            <p>Fui godín casi diez años. Buenos trabajos, pero persiguiendo sueños ajenos. En el camino me desconecté y empecé a buscar una tribu — gente con quien crecer de verdad.</p>
+                            <p>Me cansé de buscarla. Así que decidí <strong>construirla</strong>: una comunidad para apoyar a otros y crecer juntos. La llamé <strong>La Red de Luz</strong>.</p>
+                            <p>Arranqué por el propósito y la creación de contenido… y me quemé. Por querer hacer todo perfecto. Todavía me peleo con mi perfeccionismo — pero ya aprendí a elegir la <strong>acción sobre el análisis</strong>.</p>
+                            <p>Esta vez empiezo distinto: una marca personal dedicada a crear <strong>sistemas, equipos, ecosistemas y contextos</strong>. Donde disfruto lo que hago y respeto mi descanso y mis tiempos.</p>
                         </div>
-                        
-                        <h3 class="text-2xl font-bold mb-4 text-center">Los Planos Secretos de la Web</h3>
-                        
-                        <div class="space-y-3 text-zinc-300 mb-6">
-                            <p class="text-center text-lg font-medium text-orange-400">Construye desde Cimientos Sólidos</p>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Domina las etiquetas semánticas de HTML</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> 3 layouts profesionales paso a paso</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Blog, Portfolio y Landing Page</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> CSS básico con efectos profesionales</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Variables CSS y buenas prácticas</li>
-                            </ul> 
-                        </div>
-                        
-                        <div class="text-center space-y-4">
-                            <div class="text-3xl font-bold text-white">
-                                <span class="line-through text-zinc-500 text-xl">$497</span>
-                                <span class="text-orange-400 ml-2">$97 MXN</span>
-                            </div>
-                            <button class="glass-button w-full py-3 text-lg font-semibold transition-all duration-300 hover:scale-105 bg-gradient-to-r from-orange-500 to-red-600" onclick="window.open('/ebook2-planos-secretos.html')">
-                                🚀 Comprar Ahora
-                            </button>
-                            <p class="text-xs text-zinc-400">* Acceso inmediato después del pago</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Garantía y testimonios mini -->
-                <div class="mt-12 text-center">
-                    <div class="glass-container p-6 max-w-2xl mx-auto">
-                        <h4 class="text-xl font-bold mb-3">🛡️ Garantía de 7 días</h4>
-                        <p class="text-zinc-300 text-sm">
-                            Si no estás satisfecho con el contenido, te devolvemos tu dinero. 
-                            Sin preguntas, sin problemas.
-                        </p>
+                        <blockquote class="pullquote up d2" style="margin-top:2.2rem; max-width:28ch;">
+                            "Estoy cansado de perseguir sueños ajenos. Ahora voy por los míos — ayudando a otros con los suyos."
+                        </blockquote>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECCIÓN DE SERVICIOS -->
-    <section id="servicios" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <!-- Título de sección -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                        Mis <span class="text-blue-400">Servicios</span>
-                    </h2>
-                    <p class="text-xl text-zinc-300 max-w-2xl mx-auto">
-                        Combinando ingeniería de software con diseño y crecimiento personal
-                    </p>
-                </div>
-                
-                <!-- Grid de servicios -->
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Desarrollo Web -->
-                    <div class="glass-container p-8 group hover:scale-105 transition-all duration-300">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-center">Desarrollo Web</h3>
-                        <p class="text-zinc-300 text-center mb-6">
-                            Sitios web modernos y funcionales con enfoque en experiencia de usuario 
-                            y optimización técnica.
-                        </p>
-                        <div class="text-center">
-                            <button class="glass-button px-4 py-2 text-sm font-medium">
-                                Ver Portfolio
-                            </button>
-                        </div>
+        <!-- 02 · LO QUE ME MUEVE -->
+        <section class="section" id="filosofia">
+            <div class="wrap">
+                <p class="mono-label up">02 — Lo que me mueve</p>
+                <div class="manifesto" data-skew style="margin-top:2.5rem;">
+                    <div class="manifesto-item up">
+                        <span class="m-n">01</span>
+                        <div><div class="m-t">Acción sobre análisis.</div><p class="m-d">Dejé de perseguir la perfección. Persigo movimiento — avanzar imperfecto es mejor que planear eterno.</p></div>
                     </div>
-                    
-                    <!-- Consultoría Digital -->
-                    <div class="glass-container p-8 group hover:scale-105 transition-all duration-300">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-center">Consultoría Digital</h3>
-                        <p class="text-zinc-300 text-center mb-6">
-                            Estrategias digitales personalizadas para potenciar tu presencia online 
-                            y automatizar procesos.
-                        </p>
-                        <div class="text-center">
-                            <button class="glass-button px-4 py-2 text-sm font-medium">
-                                Agendar Consulta
-                            </button>
-                        </div>
+                    <div class="manifesto-item up">
+                        <span class="m-n">02</span>
+                        <div><div class="m-t">Aprender en la intersección.</div><p class="m-d">Lo bueno pasa donde se cruzan disciplinas que nadie junta: ingeniería, psicología, diseño, narrativa.</p></div>
                     </div>
-                    
-                    <!-- Mentoría Personal -->
-                    <div class="glass-container p-8 group hover:scale-105 transition-all duration-300">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-center">Mentoría Personal</h3>
-                        <p class="text-zinc-300 text-center mb-6">
-                            Acompañamiento en tu crecimiento personal y profesional, 
-                            integrando tecnología y consciencia.
-                        </p>
-                        <div class="text-center">
-                            <button class="glass-button px-4 py-2 text-sm font-medium">
-                                Conocer Más
-                            </button>
-                        </div>
+                    <div class="manifesto-item up">
+                        <span class="m-n">03</span>
+                        <div><div class="m-t">Crecer para apoyar a otros.</div><p class="m-d">No quiero llegar solo. Construyo sistemas, equipos y contextos para que otros también lleguen.</p></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECCIÓN DE COMUNIDAD: LA RED DE LUZ -->
-    <section id="comunidad" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Contenido de la comunidad -->
-                    <div class="glass-container p-8 md:p-12">
-                        <!-- Ícono de comunidad -->
-                        <div class="w-40 h-40 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center mb-8">
-                            <img src="assets/imgs/reddeluz.png" alt="red de luz" class="w-33 h-33 p-2 object-cover">
-                        </div>
-                        
-                        <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                            <span class="text-yellow-400">La Red de Luz</span>
-                        </h2>
-                        
-                        <p class="text-lg text-zinc-300 mb-6 leading-relaxed">
-                            Más que una comunidad, es un espacio de <strong class="text-white">transformación personal y digital</strong>. 
-                            Aquí compartimos herramientas, nos apoyamos mutuamente y crecemos juntos 
-                            hacia nuestro despertar integral.
-                        </p>
-                        
-                        <div class="grid grid-cols-2 gap-4 mb-8 text-sm">
-                            <div class="glass-card p-3 text-center">
-                                <span class="text-blue-400 font-medium">Consciencia espiritual</span>
-                            </div>
-                            <div class="glass-card p-3 text-center">
-                                <span class="text-purple-400 font-medium">Claridad mental</span>
-                            </div>
-                            <div class="glass-card p-3 text-center">
-                                <span class="text-pink-400 font-medium">Equilibrio emocional</span>
-                            </div>
-                            <div class="glass-card p-3 text-center">
-                                <span class="text-green-400 font-medium">Bienestar físico</span>
-                            </div>
-                        </div>
-                        
-                        <button class="glass-button w-full py-4 text-lg font-semibold transition-all duration-300 hover:scale-105" 
-                        onclick="window.open('https://lareddeluz.com', '_blank')">
-                            🌟 Ir a la Red de Luz
-                        </button>
+        <!-- 03 · LA OBRA (lista con imagen al cursor) -->
+        <section class="section" id="obra">
+            <div class="wrap">
+                <div class="up" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem;">
+                    <div>
+                        <p class="mono-label">03 — La obra</p>
+                        <h2 class="display" style="font-size:clamp(2.2rem,7vw,4.5rem); margin-top:0.6rem;">Lo que he construido</h2>
                     </div>
-                    
-                    <!-- Imagen de la comunidad -->
-                    <div class="space-y-6">
-                        <div class="glass-container p-6">
-                            <div class="w-full h-64 rounded-lg overflow-hidden">
-                                <img src="assets/imgs/community.jpg" 
-                                     alt="La Red de Luz Community" 
-                                     class="w-full h-auto">
-                            </div>
+                    <p class="mute" style="max-width:32ch; font-size:0.95rem;">Proyectos propios y sitios para clientes. Pasa el cursor sobre cada uno.</p>
+                </div>
+
+                <ul class="project-list" data-skew style="margin-top:3rem;">
+                    <li class="project-row" data-img="assets/imgs/community.jpg">
+                        <div class="p-mobile-img"><img src="assets/imgs/community.jpg" alt="La Red de Luz"></div>
+                        <a href="https://lareddeluz.com" target="_blank" rel="noopener">
+                            <span class="p-i">01</span><span class="p-n">La Red de Luz</span><span class="p-m">Proyecto propio · Misión</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                    <li class="project-row" data-img="assets/imgs/teamwork.jpg">
+                        <div class="p-mobile-img"><img src="assets/imgs/teamwork.jpg" alt="VitalBeat"></div>
+                        <a href="https://vitalbeat.lareddeluz.com" target="_blank" rel="noopener">
+                            <span class="p-i">02</span><span class="p-n">VitalBeat</span><span class="p-m">Proyecto propio</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                    <li class="project-row" data-img="assets/imgs/aprendiendo.jpg">
+                        <div class="p-mobile-img"><img src="assets/imgs/aprendiendo.jpg" alt="DESPEGA"></div>
+                        <a href="https://lareddeluz.com" target="_blank" rel="noopener">
+                            <span class="p-i">03</span><span class="p-n">DESPEGA</span><span class="p-m">Proyecto propio · Programa</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                    <li class="project-row" data-img="assets/imgs/profile.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/profile.png" alt="Ebooks"></div>
+                        <a href="ebook1-gratis.html" target="_blank" rel="noopener">
+                            <span class="p-i">04</span><span class="p-n">De 0 a Héroe del Diseño Web</span><span class="p-m">Contenido · Ebooks</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                    <li class="project-row" data-img="assets/imgs/teamwork.jpg">
+                        <div class="p-mobile-img"><img src="assets/imgs/teamwork.jpg" alt="Lumiku"></div>
+                        <a href="https://lumikupsicoinfantil.com/" target="_blank" rel="noopener">
+                            <span class="p-i">05</span><span class="p-n">Lumiku Psicología Infantil</span><span class="p-m">Desarrollo web · Cliente</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                    <li class="project-row" data-img="assets/imgs/community.jpg">
+                        <div class="p-mobile-img"><img src="assets/imgs/community.jpg" alt="Equilibria DBT"></div>
+                        <a href="https://equilibriadbt.com.mx/" target="_blank" rel="noopener">
+                            <span class="p-i">06</span><span class="p-n">Equilibria DBT</span><span class="p-m">Desarrollo web · Cliente</span><span class="p-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 04 · LA RED DE LUZ (banda cobalto) -->
+        <section class="section band-accent" id="comunidad">
+            <div class="wrap">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-6">
+                        <p class="mono-label up">04 — La Red de Luz</p>
+                        <h2 class="display up d1" style="font-size:clamp(2.4rem,7vw,5rem); margin-top:1rem; max-width:14ch;">La tribu que decidí construir.</h2>
+                        <div class="up d1" style="font-size:1.1rem; display:grid; gap:1.1rem; max-width:52ch; margin-top:1.4rem;">
+                            <p class="soft">Más que una comunidad, es un <strong style="color:#fff;">ecosistema</strong>: un contexto que te ayuda a desarrollar el mindset, las técnicas, las habilidades y las herramientas para crecer — y para apoyar a otros.</p>
+                            <p class="soft">No importa qué idea traigas: aquí todos te decimos que <strong style="color:#fff;">sí es posible, que sí lo puedes lograr.</strong></p>
                         </div>
-                        
-                        <!-- Stats de la comunidad -->
-                        <div class="glass-container p-6">
-                            <div class="grid grid-cols-3 gap-4 text-center">
-                                <div>
-                                    <div class="text-2xl font-bold text-blue-400">500+</div>
-                                    <div class="text-sm text-zinc-400">Miembros</div>
-                                </div>
-                                <div>
-                                    <div class="text-2xl font-bold text-purple-400">50+</div>
-                                    <div class="text-sm text-zinc-400">Recursos</div>
-                                </div>
-                                <div>
-                                    <div class="text-2xl font-bold text-yellow-400">24/7</div>
-                                    <div class="text-sm text-zinc-400">Apoyo</div>
-                                </div>
-                            </div>
+                        <div class="up d2" style="margin-top:2rem;">
+                            <span class="magnetic"><a href="https://lareddeluz.com" target="_blank" rel="noopener" class="btn">Entra a La Red de Luz ↗</a></span>
                         </div>
+                    </div>
+                    <div class="lg:col-span-6 up">
+                        <div class="photo r-16x9"><img src="assets/imgs/community.jpg" alt="La Red de Luz" data-speed="0.3"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECCIÓN DE TESTIMONIOS -->
-    <section id="testimonios" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <!-- Título de sección -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                        <span class="text-blue-400">Testimonios</span>
-                    </h2>
-                    <p class="text-xl text-zinc-300 max-w-2xl mx-auto">
-                        Lo que dicen quienes han trabajado conmigo
-                    </p>
-                </div>
-                
-                <!-- Grid de testimonios -->
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Testimonio 1 -->
-                    <div class="glass-container p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
-                                <!-- Placeholder para foto del cliente -->
-                                <span class="text-white font-bold">MR</span>
-                            </div>
-                            <div>
-                                <div class="font-bold">María Rodríguez</div>
-                                <div class="text-sm text-zinc-400">Emprendedora</div>
-                            </div>
-                        </div>
-                        <p class="text-zinc-300 mb-4">
-                            "Javier no solo me ayudó con mi sitio web, sino que me enseñó a verlo como 
-                            una extensión de mi propósito. Su enfoque integral cambió mi perspectiva."
-                        </p>
-                        <div class="flex text-yellow-400">
-                            ⭐⭐⭐⭐⭐
+        <!-- 05 · CONECTA -->
+        <section class="section" id="conecta">
+            <div class="wrap">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    <div class="lg:col-span-5">
+                        <p class="mono-label up">05 — Conecta</p>
+                        <h2 class="display up d1" style="font-size:clamp(2.2rem,7vw,4.2rem); margin-top:1rem; max-width:13ch;">Tu idea ya existe. <span class="accent">Hagámosla real.</span></h2>
+                        <p class="soft up d1 pretty" style="font-size:1.1rem; margin-top:1.4rem; max-width:46ch;">¿Quieres construir algo, sumarte a La Red de Luz, o solo platicar? Me encantará conocerte.</p>
+                        <div class="up d2" style="margin-top:1.8rem; display:grid; gap:0.7rem; width:fit-content;">
+                            <a href="https://wa.me/526221424577?text=Hola%20Javier%2C%20vi%20tu%20sitio%20y%20quiero%20platicar%20contigo." target="_blank" rel="noopener" class="btn btn-line">
+                                <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                WhatsApp directo
+                            </a>
+                            <a href="mailto:javier.millan14@gmail.com" class="btn btn-line">
+                                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                javier.millan14@gmail.com
+                            </a>
                         </div>
                     </div>
-                    
-                    <!-- Testimonio 2 -->
-                    <div class="glass-container p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">CL</span>
-                            </div>
-                            <div>
-                                <div class="font-bold">Carlos López</div>
-                                <div class="text-sm text-zinc-400">Coach</div>
-                            </div>
-                        </div>
-                        <p class="text-zinc-300 mb-4">
-                            "La Red de Luz ha sido un espacio de crecimiento increíble. Javier combina 
-                            perfectamente lo técnico con lo humano."
-                        </p>
-                        <div class="flex text-yellow-400">
-                            ⭐⭐⭐⭐⭐
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonio 3 -->
-                    <div class="glass-container p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-600 rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">AG</span>
-                            </div>
-                            <div>
-                                <div class="font-bold">Ana García</div>
-                                <div class="text-sm text-zinc-400">Diseñadora</div>
-                            </div>
-                        </div>
-                        <p class="text-zinc-300 mb-4">
-                            "Su mentoría me ayudó a encontrar claridad en mi carrera. Aprende constantemente 
-                            y eso se refleja en la calidad de su enseñanza."
-                        </p>
-                        <div class="flex text-yellow-400">
-                            ⭐⭐⭐⭐⭐
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- SECCIÓN DE CONTACTO -->
-    <section id="contacto" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <!-- Título de sección -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                        Conectemos <span class="text-blue-400">Juntos</span>
-                    </h2>
-                    <p class="text-xl text-zinc-300 max-w-2xl mx-auto">
-                        ¿Tienes un proyecto en mente? ¿Quieres ser parte de La Red de Luz? 
-                        Me encantaría conocerte.
-                    </p>
-                </div>
-                
-                <div class="grid lg:grid-cols-2 gap-12">
-                    <!-- Formulario de contacto -->
-                    <div class="glass-container p-8">
-                        <h3 class="text-2xl font-bold mb-6">Envíame un mensaje</h3>
-                        <form class="space-y-6" id="contact-form">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Nombre</label>
-                                <input type="text" class="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 focus:border-blue-500 focus:outline-none transition-colors" required>
+                    <div class="lg:col-span-7 up d1">
+                        <form id="lead-form" novalidate style="border:1.5px solid var(--ink); padding:clamp(1.6rem,4vw,2.6rem);">
+                            <h3 class="display" style="font-size:1.8rem;">Platiquemos</h3>
+                            <div style="display:grid; gap:1.2rem; margin-top:1.6rem;">
+                                <div class="field">
+                                    <label for="nombre">¿Cómo te llamas?</label>
+                                    <input class="input" type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre">
+                                    <span class="field-error" data-error-for="nombre"></span>
+                                </div>
+                                <div class="field">
+                                    <label for="mensaje">¿Quién eres y en qué andas?</label>
+                                    <textarea class="textarea" id="mensaje" name="mensaje" placeholder="Cuéntame qué haces, qué te trae aquí o qué idea traes en mente…"></textarea>
+                                    <span class="field-error" data-error-for="mensaje"></span>
+                                </div>
+                                <div class="field">
+                                    <label for="ayuda">¿Qué te interesa? <span class="mute">(opcional)</span></label>
+                                    <input class="input" type="text" id="ayuda" name="ayuda" placeholder="Un proyecto, La Red de Luz, una colaboración, solo platicar…">
+                                </div>
+                                <div class="hp" aria-hidden="true">
+                                    <label for="website">No llenar</label>
+                                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                                </div>
+                                <div class="form-status" role="status" aria-live="polite"></div>
+                                <button type="submit" class="btn btn-accent btn-block"><span class="btn-label">Enviar por WhatsApp</span></button>
+                                <p class="mute" style="font-size:0.8rem; text-align:center;">Sin spam. Se abre WhatsApp con tu mensaje listo.</p>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Email</label>
-                                <input type="email" class="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 focus:border-blue-500 focus:outline-none transition-colors" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Mensaje</label>
-                                <textarea rows="4" class="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 focus:border-blue-500 focus:outline-none transition-colors" required></textarea>
-                            </div>
-                            <button type="submit" class="glass-button w-full py-3 font-semibold">
-                                Enviar Mensaje
-                            </button>
                         </form>
                     </div>
-                    
-                    <!-- Información de contacto -->
-                    <div class="space-y-6">
-                        <!-- Foto de contacto -->
-                        <div class="glass-container p-6">
-                            <div class="w-full h-48 rounded-lg overflow-hidden mb-4">
-                                <img src="assets/imgs/teamwork.jpg" 
-                                     alt="Contacto Javier" 
-                                     class="w-full h-auto object-cover">
-                            </div>
-                            <p class="text-zinc-300 text-center">
-                                "Cada conexión es una oportunidad de crecimiento mutuo"
-                            </p>
-                        </div>
-                        
-                        <!-- Métodos de contacto -->
-                        <div class="glass-container p-6">
-                            <h4 class="text-xl font-bold mb-4">Otras formas de conectar</h4>
-                            <div class="space-y-4">
-                                <a href="#" class="flex items-center p-3 glass-card rounded-lg hover:bg-zinc-700 transition-colors">
-                                    <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
-                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium">LinkedIn</div>
-                                        <div class="text-sm text-zinc-400">Conecta profesionalmente</div>
-                                    </div>
-                                </a>
-                                
-                                <a href="#" class="flex items-center p-3 glass-card rounded-lg hover:bg-zinc-700 transition-colors">
-                                    <div class="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center mr-4">
-                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.029.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.029.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium">Discord - La Red de Luz</div>
-                                        <div class="text-sm text-zinc-400">Únete a la comunidad</div>
-                                    </div>
-                                </a>
-                                
-                                <a href="mailto:hola@javiermillanv.com" class="flex items-center p-3 glass-card rounded-lg hover:bg-zinc-700 transition-colors">
-                                    <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-4">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium">Email Directo</div>
-                                        <div class="text-sm text-zinc-400">hola@javiermillanv.com</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- FOOTER -->
-    <footer class="py-12 relative">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="glass-container p-8 text-center">
-                    <!-- Links sociales -->
-                    <div class="flex justify-center space-x-6 mb-8">
-                        <a href="#" class="glass-social-link p-3 rounded-full transition-all duration-300 hover:scale-110" title="Discord - La Red de Luz">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.029.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.029.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-                            </svg>
-                        </a>
-                        
-                        <a href="#" class="glass-social-link p-3 rounded-full transition-all duration-300 hover:scale-110" title="LinkedIn">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                        
-                        <a href="#" class="glass-social-link p-3 rounded-full transition-all duration-300 hover:scale-110" title="Facebook">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                        
-                        <a href="mailto:hola@javiermillanv.com" class="glass-social-link p-3 rounded-full transition-all duration-300 hover:scale-110" title="Email">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </a>
-                    </div>
-                    
-                    <!-- Frase de cierre -->
-                    <p class="text-lg text-zinc-300 font-medium mb-6">
-                        "El conocimiento libera, pero el amor transforma. 
-                        <span class="text-blue-400">Gracias por estar aquí.</span>"
-                    </p>
-                    
-                    <!-- Copyright -->
-                    <div class="pt-6 border-t border-zinc-700">
-                        <p class="text-zinc-400">
-                            © 2024 Javier Millán · javiermillanv.com · Hecho con 💙 y consciencia
-                        </p>
-                    </div>
+    <footer class="footer">
+        <div class="wrap">
+            <p class="foot-big" data-skew>Hablemos.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-end" style="margin-top:2.5rem;">
+                <div style="display:flex; gap:0.7rem;">
+                    <a href="https://wa.me/526221424577" target="_blank" rel="noopener" class="social" aria-label="WhatsApp">
+                        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    </a>
+                    <a href="https://lareddeluz.com" target="_blank" rel="noopener" class="social" aria-label="La Red de Luz">
+                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/></svg>
+                    </a>
+                    <a href="mailto:javier.millan14@gmail.com" class="social" aria-label="Email">
+                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </a>
+                </div>
+                <div style="text-align:right;">
+                    <p class="mute" style="font-size:0.85rem;">© <span id="year">2026</span> Javier Millán · Guadalajara, MX</p>
+                    <p class="mono-label" style="margin-top:0.3rem;">Entre la ingeniería y todo lo demás</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript externo -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 </html>

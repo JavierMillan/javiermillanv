@@ -1,831 +1,238 @@
-// ======================================
-// JAVASCRIPT PRINCIPAL - JAVIER MILLÁN
-// ======================================
+/* =====================================================================
+   JAVIER MILLÁN — "El estudio kinético"  ·  JS (vanilla + Lenis)
+   Efectos firma: skew por velocidad de scroll + reveal de imagen al cursor.
+   ===================================================================== */
 
-// Configuración global
-const CONFIG = {
-    navbar: {
-        scrollThreshold: 50,
-        blurIntense: 'blur(20px)',
-        blurNormal: 'blur(8px)',
-        blurNone: 'blur(0px)'
-    },
-    animations: {
-        scrollOffset: -100,
-        intersectionThreshold: 0.1,
-        intersectionRootMargin: '0px 0px -50px 0px'
+const WHATSAPP_NUMBER = '526221424577'; // 52 + 6221424577  (si no abre chat, probar 521)
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isDesktop = () => window.innerWidth >= 861;
+const lerp = (a, b, n) => a + (b - a) * n;
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+let lenis = null;
+let scrollVel = 0;
+
+/* ---------- Smooth scroll (Lenis) ---------- */
+function initLenis() {
+    if (RM || !window.Lenis) {
+        document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', anchorJump));
+        return;
     }
-};
-
-// ======================================
-// NAVBAR EFFECTS
-// ======================================
-
-function initNavbarEffects() {
-    const navbar = document.getElementById('navbar-container');
-    if (!navbar) return;
-
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > CONFIG.navbar.scrollThreshold) {
-            //navbar.style.backdropFilter = CONFIG.navbar.blurIntense;
-            //navbar.style.background = 'rgba(0, 0, 0, 0.8)';
-        } else {
-            //navbar.style.backdropFilter = CONFIG.navbar.blurNormal;
-            navbar.style.background = 'transparent';
-        }
-    });
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', (e) => { scrollVel = e.velocity || 0; });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', anchorJump));
+}
+function anchorJump(e) {
+    const id = this.getAttribute('href');
+    if (id === '#' || id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset: -76 });
+    else target.scrollIntoView({ behavior: RM ? 'auto' : 'smooth' });
+    const mm = document.getElementById('mobile-menu');
+    if (mm) mm.classList.remove('open');
+    const mb = document.getElementById('menu-btn');
+    if (mb) mb.setAttribute('aria-expanded', 'false');
 }
 
-// ======================================
-// MOBILE MENU
-// ======================================
+/* ---------- rAF maestro: skew por velocidad + parallax + cursor ---------- */
+function initKinetics() {
+    const skewEls = Array.from(document.querySelectorAll('[data-skew]'));
+    const speedEls = Array.from(document.querySelectorAll('[data-speed]'));
+    const dot = document.querySelector('.cursor-dot');
 
-function initMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (!mobileMenuBtn || !mobileMenu) return;
+    let curSkew = 0;
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let dx = mx, dy = my;
 
-    mobileMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-        
-        // Cambiar icono del botón
-        const icon = mobileMenuBtn.querySelector('svg');
-        if (icon) {
-            if (mobileMenu.classList.contains('hidden')) {
-                // Icono de hamburger
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-            } else {
-                // Icono de X
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+    if (dot) window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+    const tick = () => {
+        // Skew kinético (suavizado)
+        if (skewEls.length && !RM) {
+            const target = clamp(scrollVel * 0.35, -7, 7);
+            curSkew = lerp(curSkew, target, 0.1);
+            const t = `skewY(${curSkew.toFixed(2)}deg)`;
+            for (const el of skewEls) el.style.transform = t;
+        }
+        // Parallax suave de imágenes
+        if (speedEls.length && !RM) {
+            const vh = window.innerHeight;
+            for (const el of speedEls) {
+                const r = el.getBoundingClientRect();
+                const center = r.top + r.height / 2;
+                const off = (center - vh / 2) / vh;
+                const sp = parseFloat(el.dataset.speed) || 0;
+                el.style.transform = `translateY(${(off * sp * -60).toFixed(1)}px)`;
             }
         }
-    });
-}
-
-// ======================================
-// SMOOTH SCROLL
-// ======================================
-
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if (target) {
-                const offsetTop = target.offsetTop + CONFIG.animations.scrollOffset;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Cerrar menú móvil si está abierto
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    
-                    // Resetear icono del botón
-                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-                    const icon = mobileMenuBtn?.querySelector('svg');
-                    if (icon) {
-                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-                    }
-                }
-            }
-        });
-    });
-}
-
-// ======================================
-// CONTACT FORM
-// ======================================
-
-function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Obtener datos del formulario
-        const formData = new FormData(this);
-        const name = this.querySelector('input[type="text"]')?.value;
-        const email = this.querySelector('input[type="email"]')?.value;
-        const message = this.querySelector('textarea')?.value;
-        
-        // Validación básica
-        if (!name || !email || !message) {
-            showNotification('Por favor, completa todos los campos.', 'error');
-            return;
+        // Cursor
+        if (dot) {
+            dx = lerp(dx, mx, 0.2); dy = lerp(dy, my, 0.2);
+            dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
         }
-        
-        // Validar email
-        if (!isValidEmail(email)) {
-            showNotification('Por favor, ingresa un email válido.', 'error');
-            return;
-        }
-        
-        // Simular envío exitoso
-        showNotification('¡Gracias por tu mensaje! Te contactaré pronto.', 'success');
-        
-        // Resetear formulario
-        this.reset();
-    });
-}
-
-// ======================================
-// INTERSECTION OBSERVER ANIMATIONS
-// ======================================
-
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: CONFIG.animations.intersectionThreshold,
-        rootMargin: CONFIG.animations.intersectionRootMargin
+        requestAnimationFrame(tick);
     };
+    requestAnimationFrame(tick);
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+    // Cursor crece/oculta sobre interactivos
+    if (dot) {
+        document.querySelectorAll('a, button, .project-row, input, textarea').forEach((el) => {
+            el.addEventListener('mouseenter', () => dot.classList.add('big'));
+            el.addEventListener('mouseleave', () => dot.classList.remove('big'));
         });
-    }, observerOptions);
-
-    // Observar todas las secciones
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
-    });
+    }
 }
 
-// ======================================
-// GLASS BUTTON EFFECTS
-// ======================================
+/* ---------- Reveals de entrada (IntersectionObserver) ---------- */
+function initReveals() {
+    const els = document.querySelectorAll('.up, .clip');
+    if (RM || !('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('in')); return; }
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach((el) => io.observe(el));
+}
 
-function initGlassButtonEffects() {
-    document.querySelectorAll('.glass-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Crear efecto ripple
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            const ripple = document.createElement('span');
-            ripple.style.cssText = `
-                position: absolute;
-                left: ${x}px;
-                top: ${y}px;
-                width: ${size}px;
-                height: ${size}px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 50%;
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-                pointer-events: none;
-                z-index: 1;
-            `;
-            
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+/* ---------- Hero: revelado de líneas ---------- */
+function initHero() {
+    const lines = document.querySelectorAll('.hero-title .l > span');
+    if (RM) { lines.forEach((s) => s.classList.add('in')); return; }
+    lines.forEach((s, i) => setTimeout(() => s.classList.add('in'), 120 + i * 130));
+}
+
+/* =====================================================================
+   EFECTO FIRMA — La obra: imagen que sigue el cursor
+   ===================================================================== */
+function initProjectReveal() {
+    const layer = document.querySelector('.reveal-img');
+    const rows = document.querySelectorAll('.project-row');
+    if (!layer || !rows.length || !isDesktop()) return;
+
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    rows.forEach((row) => {
+        const img = row.dataset.img;
+        row.addEventListener('mouseenter', () => {
+            if (img) layer.style.backgroundImage = `url("${img}")`;
+            layer.classList.add('show');
         });
+        row.addEventListener('mouseleave', () => { layer.classList.remove('show'); });
     });
-}
+    window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
 
-// ======================================
-// UTILIDADES
-// ======================================
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function showNotification(message, type = 'info') {
-    // Crear elemento de notificación
-    const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
-    
-    // Estilos según el tipo
-    const styles = {
-        success: 'bg-green-500 text-white',
-        error: 'bg-red-500 text-white',
-        info: 'bg-blue-500 text-white'
+    const follow = () => {
+        cx = lerp(cx, tx, 0.14); cy = lerp(cy, ty, 0.14);
+        layer.style.left = cx + 'px';
+        layer.style.top = cy + 'px';
+        requestAnimationFrame(follow);
     };
-    
-    notification.className += ` ${styles[type] || styles.info}`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    // Animación de entrada
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Remover después de 3 segundos
-    setTimeout(() => {
-        notification.style.transform = 'translateX(full)';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
+    requestAnimationFrame(follow);
 }
 
-// ======================================
-// EFECTOS DE URGENCIA (PARA PÁGINAS DE VENTAS)
-// ======================================
+/* ---------- Navbar ---------- */
+function initNav() {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+    let last = 0;
+    const onScroll = () => {
+        const y = window.scrollY;
+        nav.classList.toggle('scrolled', y > 20);
+        nav.classList.toggle('nav-hidden', y > last && y > 320);
+        last = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+}
 
-function initUrgencyEffects() {
-    const urgencyElements = document.querySelectorAll('.urgency-text');
-    if (urgencyElements.length === 0) return;
+/* ---------- Menú móvil ---------- */
+function initMenu() {
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+        const o = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(o));
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') menu.classList.remove('open'); });
+}
 
-    function updateUrgency() {
-        urgencyElements.forEach(el => {
-            el.style.opacity = el.style.opacity === '0.5' ? '1' : '0.5';
+/* ---------- Botón magnético ---------- */
+function initMagnetic() {
+    if (RM || !isDesktop() || 'ontouchstart' in window) return;
+    document.querySelectorAll('.magnetic').forEach((wrap) => {
+        const el = wrap.querySelector('.btn') || wrap.firstElementChild;
+        if (!el) return;
+        wrap.addEventListener('mousemove', (e) => {
+            const r = wrap.getBoundingClientRect();
+            el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.3}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
         });
-    }
-    
-    setInterval(updateUrgency, 2000);
-}
-
-// ======================================
-// FAQ ACCORDION (PARA PÁGINAS DE VENTAS)
-// ======================================
-
-function initFAQAccordion() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-        
-        if (question && answer) {
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                
-                // Cerrar todos los otros items
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('open');
-                    const otherAnswer = otherItem.querySelector('.faq-answer');
-                    if (otherAnswer) {
-                        otherAnswer.style.maxHeight = '0';
-                    }
-                });
-                
-                // Toggle el item actual
-                if (!isOpen) {
-                    item.classList.add('open');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                }
-            });
-        }
+        wrap.addEventListener('mouseleave', () => { el.style.transform = ''; });
     });
 }
 
-// ======================================
-// CONTADOR REGRESIVO (PARA PÁGINAS DE VENTAS)
-// ======================================
+/* ---------- Form -> WhatsApp ---------- */
+function initLeadForm() {
+    const form = document.getElementById('lead-form');
+    if (!form) return;
+    const statusEl = form.querySelector('.form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.querySelector('.btn-label') : null;
 
-function initCountdown(targetDate) {
-    const countdownElement = document.getElementById('countdown');
-    if (!countdownElement) return;
+    const setStatus = (msg, type) => { if (statusEl) { statusEl.textContent = msg; statusEl.className = `form-status show ${type}`; } };
+    const fieldErr = (name, msg) => {
+        const input = form.elements[name];
+        const errEl = form.querySelector(`[data-error-for="${name}"]`);
+        if (input) input.classList.toggle('invalid', !!msg);
+        if (errEl) errEl.textContent = msg || '';
+    };
+    ['nombre', 'mensaje', 'ayuda'].forEach((n) => { const i = form.elements[n]; if (i) i.addEventListener('input', () => fieldErr(n, '')); });
 
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-
-        if (distance < 0) {
-            countdownElement.innerHTML = "¡Oferta expirada!";
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    const interval = setInterval(updateCountdown, 1000);
-    updateCountdown(); // Ejecutar inmediatamente
-    
-    return interval;
-}
-
-// ======================================
-// TRACKING DE EVENTOS (OPCIONAL)
-// ======================================
-
-function trackEvent(eventName, eventData = {}) {
-    // Aquí puedes integrar Google Analytics, Facebook Pixel, etc.
-    console.log('Event tracked:', eventName, eventData);
-    
-    // Ejemplo para Google Analytics 4
-    if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, eventData);
-    }
-    
-    // Ejemplo para Facebook Pixel
-    if (typeof fbq !== 'undefined') {
-        fbq('track', eventName, eventData);
-    }
-}
-
-// ======================================
-// INICIALIZACIÓN
-// ======================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar todas las funcionalidades
-    initNavbarEffects();
-    initMobileMenu();
-    initSmoothScroll();
-    initContactForm();
-    initScrollAnimations();
-    initGlassButtonEffects();
-    initUrgencyEffects();
-    initFAQAccordion();
-    
-    // Agregar animación de entrada a los elementos glass
-    setTimeout(() => {
-        document.querySelectorAll('.glass-container').forEach((el, index) => {
-            el.style.animationDelay = `${index * 0.1}s`;
-            el.classList.add('fade-in-up');
-        });
-    }, 100);
-    
-    console.log('🚀 JavaScript de Javier Millán cargado correctamente');
-});
-
-// ======================================
-// CSS ANIMATIONS (INJECT TO HEAD)
-// ======================================
-
-function injectAnimations() { 
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .faq-item.open .faq-answer {
-            transition: max-height 0.3s ease;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// Inyectar animaciones cuando se carga el DOM
-document.addEventListener('DOMContentLoaded', injectAnimations);
-
-// ======================================
-// FUNCIONALIDAD DROPDOWN EBOOKS
-// ======================================
-
-function initEbooksDropdown() {
-    const dropdownTrigger = document.querySelector('.ebooks-nav-section');
-    const dropdown = document.querySelector('.ebooks-dropdown');
-    
-    if (!dropdownTrigger || !dropdown) return;
-    
-    let isDropdownOpen = false;
-    let hideTimeout;
-    
-    // Función para mostrar dropdown
-    function showDropdown() {
-        clearTimeout(hideTimeout);
-        isDropdownOpen = true;
-        dropdown.style.opacity = '1';
-        dropdown.style.visibility = 'visible';
-        dropdown.style.transform = 'translateY(0)';
-    }
-    
-    // Función para ocultar dropdown
-    function hideDropdown() {
-        hideTimeout = setTimeout(() => {
-            isDropdownOpen = false;
-            dropdown.style.opacity = '0';
-            dropdown.style.visibility = 'hidden';
-            dropdown.style.transform = 'translateY(0.5rem)';
-        }, 150); // Pequeño delay para mejor UX
-    }
-    
-    // Event listeners para desktop
-    dropdownTrigger.addEventListener('mouseenter', showDropdown);
-    dropdownTrigger.addEventListener('mouseleave', hideDropdown);
-    
-    // Mantener dropdown abierto cuando el mouse está sobre él
-    dropdown.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-    });
-    dropdown.addEventListener('mouseleave', hideDropdown);
-    
-    // Cerrar dropdown al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (!dropdownTrigger.contains(e.target) && !dropdown.contains(e.target)) {
-            hideDropdown();
-        }
-    });
-    
-    // Manejo del teclado para accesibilidad
-    dropdownTrigger.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            if (isDropdownOpen) {
-                hideDropdown();
-            } else {
-                showDropdown();
-            }
-        }
-        
-        if (e.key === 'Escape') {
-            hideDropdown();
-        }
-    });
-}
-
-// ======================================
-// TRACKING DE EVENTOS PARA EBOOKS
-// ======================================
-
-function initEbooksTracking() {
-    // Tracking cuando se abre el dropdown
-    const ebooksLink = document.querySelector('a[href="#productos"]');
-    if (ebooksLink) {
-        ebooksLink.addEventListener('click', () => {
-            trackEvent('ebooks_section_viewed', {
-                source: 'navbar_dropdown',
-                timestamp: Date.now()
-            });
-        });
-    }
-    
-    // Tracking de clics en ebooks específicos
-    document.querySelectorAll('.ebook-item').forEach((item, index) => {
-        item.addEventListener('click', () => {
-            const ebookTitle = item.querySelector('.ebook-title')?.textContent || `ebook_${index}`;
-            trackEvent('ebook_clicked', {
-                ebook_title: ebookTitle,
-                source: 'navbar_dropdown',
-                position: index + 1
-            });
-        });
-    });
-}
-
-// ======================================
-// EFECTOS VISUALES MEJORADOS
-// ======================================
-
-function initEbooksVisualEffects() {
-    // Efecto de pulse en el emoji del ebook
-    const ebookIcons = document.querySelectorAll('.ebook-icon');
-    
-    ebookIcons.forEach(icon => {
-        let pulseInterval;
-        
-        icon.addEventListener('mouseenter', () => {
-            pulseInterval = setInterval(() => {
-                icon.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    icon.style.transform = 'scale(1)';
-                }, 150);
-            }, 300);
-        });
-        
-        icon.addEventListener('mouseleave', () => {
-            clearInterval(pulseInterval);
-            icon.style.transform = 'scale(1)';
-        });
-    });
-    
-    // Efecto de brillo en badges
-    const badges = document.querySelectorAll('.free-badge, .price-badge');
-    badges.forEach(badge => {
-        badge.addEventListener('mouseenter', () => {
-            badge.style.boxShadow = '0 0 15px rgba(59, 130, 246, 0.5)';
-        });
-        
-        badge.addEventListener('mouseleave', () => {
-            badge.style.boxShadow = 'none';
-        });
-    });
-}
-
-// ======================================
-// MOBILE MENU CON EBOOKS
-// ======================================
-
-function updateMobileMenuWithEbooks() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (!mobileMenuBtn || !mobileMenu) return;
-    
-    // Función para toggle del menú móvil (actualizada)
-    function toggleMobileMenu() {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        
-        if (isHidden) {
-            mobileMenu.classList.remove('hidden');
-            // Animar entrada de items
-            const menuItems = mobileMenu.querySelectorAll('a, .mobile-ebook-section');
-            menuItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateX(-20px)';
-                setTimeout(() => {
-                    item.style.transition = 'all 0.3s ease';
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateX(0)';
-                }, index * 50);
-            });
-        } else {
-            mobileMenu.classList.add('hidden');
-        }
-        
-        // Cambiar icono
-        const icon = mobileMenuBtn.querySelector('svg');
-        if (icon) {
-            if (isHidden) {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-            } else {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
-            }
-        }
-    }
-    
-    // Reemplazar el event listener existente
-    mobileMenuBtn.replaceWith(mobileMenuBtn.cloneNode(true));
-    document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-}
-
-// ======================================
-// INICIALIZACIÓN EXTENDIDA
-// ======================================
-
-// Añadir a la función de inicialización principal
-document.addEventListener('DOMContentLoaded', function() {
-    // Ejecutar después de que se carguen las funciones base
-    setTimeout(() => {
-        initEbooksDropdown();
-        initEbooksTracking();
-        initEbooksVisualEffects();
-        updateMobileMenuWithEbooks();
-        
-        console.log('✅ Funcionalidad de Ebooks inicializada');
-    }, 100);
-});
-
-// ======================================
-// UTILIDADES ESPECÍFICAS PARA EBOOKS
-// ======================================
-
-function scrollToEbooks() {
-    const ebooksSection = document.getElementById('productos');
-    if (ebooksSection) {
-        ebooksSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-        
-        // Highlight temporal de la sección
-        ebooksSection.style.boxShadow = '0 0 30px rgba(59, 130, 246, 0.3)';
-        setTimeout(() => {
-            ebooksSection.style.boxShadow = '';
-        }, 2000);
-    }
-}
-
-// Función para abrir modal de ebook (para futuras implementaciones)
-function openEbookModal(ebookId) {
-    trackEvent('ebook_modal_opened', { ebook_id: ebookId });
-    
-    // Aquí puedes añadir la lógica para abrir un modal con más detalles
-    console.log(`Abriendo modal para ebook: ${ebookId}`);
-}
-
-// ======================================
-// DROPDOWN INDEPENDIENTE PARA EBOOKS
-// ======================================
-
-function initIndependentEbooksDropdown() {
-    const trigger = document.getElementById('ebooks-trigger');
-    const dropdown = document.getElementById('ebooks-dropdown');
-    const overlay = document.getElementById('dropdown-overlay');
-    const arrow = document.getElementById('ebooks-arrow');
-    
-    if (!trigger || !dropdown || !overlay || !arrow) return;
-    
-    let isOpen = false;
-    let hideTimeout;
-    
-    // Función para calcular posición del dropdown
-    function calculateDropdownPosition() {
-        const triggerRect = trigger.getBoundingClientRect();
-        const dropdownWidth = 300;
-        const viewportWidth = window.innerWidth;
-        
-        // Posición vertical
-        dropdown.style.top = (triggerRect.bottom + 8) + 'px';
-        
-        // Posición horizontal
-        let leftPosition = triggerRect.left;
-        
-        // Si se sale por la derecha, ajustar
-        if (leftPosition + dropdownWidth > viewportWidth - 20) {
-            leftPosition = viewportWidth - dropdownWidth - 20;
-        }
-        
-        // Si se sale por la izquierda, ajustar
-        if (leftPosition < 20) {
-            leftPosition = 20;
-        }
-        
-        dropdown.style.left = leftPosition + 'px';
-    }
-    
-    // Función para mostrar dropdown
-    function showDropdown() {
-        clearTimeout(hideTimeout);
-        calculateDropdownPosition();
-        
-        dropdown.classList.add('show');
-        overlay.classList.add('show');
-        arrow.style.transform = 'rotate(180deg)';
-        isOpen = true;
-        
-        // Tracking
-        if (typeof trackEvent === 'function') {
-            trackEvent('ebooks_dropdown_opened', {
-                source: 'navbar',
-                timestamp: Date.now()
-            });
-        }
-    }
-    
-    // Función para ocultar dropdown
-    function hideDropdown() {
-        hideTimeout = setTimeout(() => {
-            dropdown.classList.remove('show');
-            overlay.classList.remove('show');
-            arrow.style.transform = 'rotate(0deg)';
-            isOpen = false;
-        }, 150);
-    }
-    
-    // Event listeners
-    trigger.addEventListener('mouseenter', showDropdown);
-    trigger.addEventListener('mouseleave', hideDropdown);
-    
-    // Mantener abierto cuando mouse está sobre dropdown
-    dropdown.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-    });
-    dropdown.addEventListener('mouseleave', hideDropdown);
-    
-    // Cerrar con overlay
-    overlay.addEventListener('click', hideDropdown);
-    
-    // Cerrar con Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen) {
-            hideDropdown();
-        }
-    });
-    
-    // Click en trigger para toggle (útil en móvil)
-    trigger.addEventListener('click', (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (isOpen) {
-            hideDropdown();
-        } else {
-            showDropdown();
-        }
+        if (form.elements['website'] && form.elements['website'].value) { setStatus('Gracias, recibí tu mensaje.', 'success'); form.reset(); return; }
+        const nombre = form.elements['nombre'].value.trim();
+        const mensaje = form.elements['mensaje'].value.trim();
+        const ayuda = form.elements['ayuda'] ? form.elements['ayuda'].value.trim() : '';
+        let ok = true;
+        if (nombre.length < 2) { fieldErr('nombre', 'Dime cómo te llamas.'); ok = false; } else fieldErr('nombre', '');
+        if (mensaje.length < 5) { fieldErr('mensaje', 'Cuéntame un poco más.'); ok = false; } else fieldErr('mensaje', '');
+        if (!ok) { setStatus('Revisa los campos marcados.', 'error'); return; }
+
+        if (submitBtn) submitBtn.classList.add('loading');
+        if (submitLabel) submitLabel.innerHTML = '<span class="spinner"></span>&nbsp; Abriendo WhatsApp…';
+
+        const lines = ['Hola Javier, vi tu sitio y quiero platicar contigo.', '', `Nombre: ${nombre}`, `Sobre mí / mi idea: ${mensaje}`];
+        if (ayuda) lines.push(`Me interesa: ${ayuda}`);
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+
+        setTimeout(() => {
+            const win = window.open(url, '_blank');
+            if (submitBtn) submitBtn.classList.remove('loading');
+            if (submitLabel) submitLabel.textContent = 'Enviar por WhatsApp';
+            if (win) { setStatus('Listo. Sigamos en WhatsApp.', 'success'); form.reset(); }
+            else { setStatus('Tu navegador bloqueó la ventana. Toca para abrir WhatsApp.', 'error'); if (statusEl) { statusEl.style.cursor = 'pointer'; statusEl.onclick = () => { window.location.href = url; }; } }
+        }, 420);
     });
-    
-    // Recalcular posición en resize
-    window.addEventListener('resize', () => {
-        if (isOpen) {
-            calculateDropdownPosition();
-        }
-    });
-    
-    // Recalcular posición en scroll
-    window.addEventListener('scroll', () => {
-        if (isOpen) {
-            calculateDropdownPosition();
-        }
-    });
-    
-    console.log('✅ Dropdown independiente de Ebooks inicializado');
 }
 
-// ======================================
-// TRACKING MEJORADO PARA EBOOKS
-// ======================================
+/* ---------- Año ---------- */
+function initYear() { const el = document.getElementById('year'); if (el) el.textContent = new Date().getFullYear(); }
 
-function initEbooksClickTracking() {
-    // Tracking de clics en ebooks específicos
-    document.querySelectorAll('#ebooks-dropdown a[href="#productos"]').forEach((link, index) => {
-        link.addEventListener('click', (e) => {
-            const ebookTitle = link.querySelector('.text-sm')?.textContent || `ebook_${index}`;
-            const isGratis = link.textContent.includes('GRATIS');
-            
-            if (typeof trackEvent === 'function') {
-                trackEvent('ebook_clicked', {
-                    ebook_title: ebookTitle,
-                    is_free: isGratis,
-                    source: 'navbar_dropdown',
-                    position: index + 1
-                });
-            }
-        });
-    });
-    
-    // Tracking del botón "Ver Todos los Ebooks"
-    const viewAllBtn = document.querySelector('#ebooks-dropdown button');
-    if (viewAllBtn) {
-        viewAllBtn.addEventListener('click', () => {
-            if (typeof trackEvent === 'function') {
-                trackEvent('view_all_ebooks_clicked', {
-                    source: 'navbar_dropdown'
-                });
-            }
-        });
-    }
-}
-
-// ======================================
-// INICIALIZACIÓN
-// ======================================
-
-// Añadir a la inicialización principal
-document.addEventListener('DOMContentLoaded', function() {
-    // Ejecutar después de que se carguen las funciones base
-    setTimeout(() => {
-        initIndependentEbooksDropdown();
-        initEbooksClickTracking();
-        
-        console.log('🚀 Sistema de dropdown independiente cargado');
-    }, 100);
+/* ---------- INIT ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('ready');
+    initLenis();
+    initKinetics();
+    initReveals();
+    initHero();
+    initProjectReveal();
+    initNav();
+    initMenu();
+    initMagnetic();
+    initLeadForm();
+    initYear();
 });
-
-// ======================================
-// UTILIDADES ADICIONALES
-// ======================================
-
-// Función para cerrar dropdown programáticamente
-function closeEbooksDropdown() {
-    const dropdown = document.getElementById('ebooks-dropdown');
-    const overlay = document.getElementById('dropdown-overlay');
-    const arrow = document.getElementById('ebooks-arrow');
-    
-    if (dropdown && overlay && arrow) {
-        dropdown.classList.remove('show');
-        overlay.classList.remove('show');
-        arrow.style.transform = 'rotate(0deg)';
-    }
-}
-
-// Función para abrir dropdown programáticamente
-function openEbooksDropdown() {
-    const trigger = document.getElementById('ebooks-trigger');
-    if (trigger) {
-        trigger.dispatchEvent(new Event('mouseenter'));
-    }
-}
