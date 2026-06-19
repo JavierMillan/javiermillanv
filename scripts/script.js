@@ -133,34 +133,35 @@ function initCollisions() {
     const barFill = document.getElementById('col-bar-fill');
     const n = slides.length;
 
-    // Sin GSAP o reduced-motion: apila las slides en vertical (legible, sin pin)
-    if (RM || !(window.gsap && window.ScrollTrigger)) {
-        pin.classList.add('col-stacked');
-        return;
-    }
+    // Sin GSAP o reduced-motion: estado por defecto = slides apiladas y legibles (sin pin)
+    if (RM || !(window.gsap && window.ScrollTrigger)) return;
 
-    pin.classList.add('col-horizontal');
+    pin.classList.add('col-fade');
 
-    const setProgress = (p) => {
-        const idx = Math.min(n - 1, Math.floor(p * n + 0.0001));
+    // muestra la slide idx con cross-fade; las demás se ocultan
+    let current = -1;
+    const show = (idx) => {
+        if (idx === current) return;
+        current = idx;
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
         dots.forEach((d, i) => d.classList.toggle('is-on', i <= idx));
-        if (barFill) barFill.style.transform = `scaleX(${p.toFixed(3)})`;
     };
-    setProgress(0);
+    show(0);
 
-    // mueve el track horizontalmente mientras la sección está pineada
-    gsap.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
-        ease: 'none',
-        scrollTrigger: {
-            trigger: pin,
-            start: 'top top',
-            end: () => '+=' + (track.scrollWidth - window.innerWidth + window.innerHeight),
-            pin: true,
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            onUpdate: (self) => setProgress(self.progress),
+    // pin fijo; el progreso del scroll decide qué slide se desvanece
+    ScrollTrigger.create({
+        trigger: pin,
+        start: 'top top',
+        end: () => '+=' + (window.innerHeight * n),
+        pin: true,
+        scrub: 0.5,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+            const p = self.progress;
+            const idx = Math.min(n - 1, Math.floor(p * n));
+            show(idx);
+            if (barFill) barFill.style.transform = `scaleX(${p.toFixed(3)})`;
         },
     });
 }
