@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>document.documentElement.classList.add('js');</script>
-    <title>Javier Millán — Entre la ingeniería y todo lo demás</title>
-    <meta name="description" content="Javier Millán: ingeniero de software y aprendiz eterno. Construyo sistemas, equipos y ecosistemas — y exploro casi todo lo demás. Mi historia, mi obra y La Red de Luz.">
+    <title>Javier Millán — No te falta luz. Te falta estructura.</title>
+    <meta name="description"
+        content="Soy Javier Millán. Construyo sistemas, equipos y comunidades que vuelven real lo que llevas dentro. Mi historia, mi obra y La Red de Luz.">
     <meta name="theme-color" content="#f3efe5">
 
     <link rel="canonical" href="https://javiermillanv.com/">
     <link rel="icon" href="assets/imgs/logo.png">
 
-    <meta property="og:title" content="Javier Millán — Entre la ingeniería y todo lo demás">
-    <meta property="og:description" content="Ingeniero de software y aprendiz eterno. Mi historia, mi obra y La Red de Luz.">
+    <meta property="og:title" content="Javier Millán — No te falta luz. Te falta estructura.">
+    <meta property="og:description"
+        content="Construyo sistemas, equipos y comunidades que vuelven real lo que llevas dentro.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://javiermillanv.com/">
     <meta property="og:image" content="https://javiermillanv.com/assets/imgs/profile.png">
@@ -20,12 +23,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400;1,9..144,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-    <!-- CURSOR + IMAGEN FLOTANTE -->
+    <!-- Barra de progreso del recorrido -->
+    <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-fill" id="scroll-progress-fill"></span>
+    </div>
+
+    <!-- Constelación ambiental (canvas persistente detrás de todo) -->
+    <canvas class="constellation" id="constellation" aria-hidden="true"></canvas>
+
+    <!-- Cursor + imagen flotante (obra) -->
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="reveal-img" aria-hidden="true"></div>
 
@@ -34,229 +47,404 @@
         <div class="wrap nav-in">
             <a href="#inicio" class="logo">Javier <b>Millán</b></a>
             <nav class="nav-links">
-                <a href="#historia" class="nav-link">Historia</a>
-                <a href="#filosofia" class="nav-link">Lo que me mueve</a>
-                <a href="#obra" class="nav-link">La obra</a>
-                <a href="#comunidad" class="nav-link">La Red de Luz</a>
-                <span class="magnetic"><a href="#conecta" class="btn btn-solid" style="padding:0.55rem 1.1rem; font-size:0.85rem;">Conecta</a></span>
+                <a href="#colisiones" class="nav-link">Quién soy</a>
+                <a href="#obra" class="nav-link">Lo que hago</a>
+                <a href="#constelacion" class="nav-link">La constelación</a>
+                <span class="magnetic"><a href="#conecta" class="btn btn-solid"
+                        style="padding:0.55rem 1.1rem; font-size:0.85rem;">Súmate</a></span>
             </nav>
             <button class="menu-btn" id="menu-btn" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
-                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
             </button>
         </div>
     </header>
     <nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
-        <a href="#historia">Historia</a>
-        <a href="#filosofia">Lo que me mueve</a>
-        <a href="#obra">La obra</a>
-        <a href="#comunidad">La Red de Luz</a>
-        <a href="#conecta">Conecta</a>
+        <a href="#colisiones">Quién soy</a>
+        <a href="#obra">Lo que hago</a>
+        <a href="#constelacion">La constelación</a>
+        <a href="#conecta">Súmate</a>
     </nav>
 
     <main>
 
-        <!-- HERO -->
+        <!-- ============================================================
+             1 · HERO — la luz suelta
+             ============================================================ -->
         <section class="hero" id="inicio">
             <div class="wrap">
-                <p class="mono-label up">Ingeniero de software · Aprendiz eterno · Guadalajara, MX</p>
-                <h1 class="hero-title" style="margin-top:1.6rem;">
-                    <span class="l"><span>Entre la</span></span>
-                    <span class="l"><span>ingeniería</span></span>
-                    <span class="l"><span class="accent">y todo lo demás.</span></span>
+                <p class="eyebrow up">
+                    <span class="eyebrow-dot" aria-hidden="true"></span>
+                    <span class="mono-label">Javier Millán · Arquitecto de constelaciones · Guadalajara, MX</span>
+                </p>
+                <h1 class="hero-title">
+                    <span class="l"><span>De niño me escondí</span></span>
+                    <span class="l"><span>en una <span class="coral">pantalla.</span></span></span>
+                    <span class="l"><span>Hoy construyo lugares</span></span>
+                    <span class="l"><span class="accent">donde recuerdas</span></span>
+                    <span class="l"><span class="accent">cómo brillar.</span></span>
                 </h1>
                 <div class="hero-foot">
-                    <div>
-                        <p class="hero-sub up d1">Construyo sistemas, equipos y ecosistemas — y exploro casi todo lo demás: fotografía, psicología, escritura, diseño.</p>
-                        <div class="chips up d2" style="margin-top:1.4rem;">
-                            <span class="chip">~10 años en sistemas</span>
-                            <span class="chip">Fundador de La Red de Luz</span>
-                            <span class="chip">Acción &gt; análisis</span>
-                        </div>
-                    </div>
+                    <p class="hero-sub up d1">Soy Javier. Hago sistemas, equipos y comunidades. Cosas que ordenan el
+                        caos de una idea y la vuelven real. Porque casi siempre el problema no es la idea. <strong>Es
+                            que está sola.</strong></p>
                     <div class="up d2" style="display:flex; gap:0.7rem; flex-wrap:wrap;">
-                        <span class="magnetic"><a href="#conecta" class="btn btn-accent">Conecta conmigo</a></span>
-                        <a href="#historia" class="btn btn-line">Mi historia</a>
+                        <span class="magnetic"><a href="#colisiones" class="btn btn-accent">Empieza el
+                                recorrido</a></span>
+                        <a href="#conecta" class="btn btn-line">Hablemos</a>
                     </div>
                 </div>
             </div>
-            <div class="scroll-cue" aria-hidden="true"><span class="ln"></span><span class="mono-label">Scroll</span></div>
+            <div class="scroll-cue" aria-hidden="true"><span class="ln"></span><span class="mono-label">Baja · el mapa
+                    empieza aquí</span></div>
         </section>
 
-        <!-- MARQUEE -->
-        <div class="marquee" aria-hidden="true">
-            <div class="marquee-row">
-                <span>Sistemas</span><span>Ingeniería</span><span>Fotografía</span><span>Psicología</span><span>Escritura</span><span>Comunidad</span><span>Acción &gt; análisis</span>
-                <span>Sistemas</span><span>Ingeniería</span><span>Fotografía</span><span>Psicología</span><span>Escritura</span><span>Comunidad</span><span>Acción &gt; análisis</span>
-            </div>
-        </div>
+        <!-- ============================================================
+             2 · COLISIONES — quién soy en 3 cruces (PIN + SCRUB, noche)
+             ============================================================ -->
+        <section class="collisions" id="colisiones" data-night>
+            <div class="col-pin" id="col-pin">
+                <!-- cabecera fija del carrusel -->
+                <div class="col-top wrap">
+                    <p class="mono-label col-kicker">Quién soy — empecemos por una colisión</p>
+                    <div class="col-progress" aria-hidden="true">
+                        <span class="col-dot is-on"></span><span class="col-dot"></span><span
+                            class="col-dot"></span><span class="col-dot"></span>
+                        <span class="col-bar"><span class="col-bar-fill" id="col-bar-fill"></span></span>
+                    </div>
+                </div>
 
-        <!-- 01 · MI HISTORIA -->
-        <section class="section" id="historia">
-            <div class="wrap">
-                <p class="mono-label up">01 — Mi historia</p>
-                <h2 class="lead up d1" style="margin-top:1.2rem; max-width:22ch;">Dejé de buscar una tribu. <span class="accent">Decidí construirla.</span></h2>
-
-                <div class="grid lg:grid-cols-12 gap-12" style="margin-top:3.5rem;">
-                    <div class="lg:col-span-5 up">
-                        <div class="photo r-4x5 photo-sticky">
-                            <img src="assets/imgs/profile.png" alt="Javier Millán" data-speed="0.4">
+                <!-- track horizontal de diapositivas -->
+                <div class="col-track" id="col-track">
+                    <!-- Slide 0 · definición + Colisión 1 -->
+                    <article class="col-slide">
+                        <div class="col-slide-in">
+                            <p class="col-def">Una <span class="coral">colisión</span> es cuando dos cosas que no tienen
+                                nada que ver, de pronto resultan ser la misma. Así entiendo el mundo. Así te voy a
+                                contar quién soy.</p>
+                            <p class="col-n mono-label">Colisión 01 · el miedo</p>
+                            <div class="col-pair">
+                                <span class="col-a">Saltar de un acantilado al mar</span>
+                                <span class="col-x" aria-hidden="true">✕</span>
+                                <span class="col-b">Mandarle el mensaje a tu crush</span>
+                            </div>
+                            <p class="col-reveal">Es el mismo instante. El de justo antes de <span class="coral">dejar
+                                    de protegerte.</span> Yo me quedé en la orilla años. Mirando. Calculando. Esperando
+                                el momento perfecto que nunca llega.</p>
                         </div>
-                    </div>
-                    <div class="lg:col-span-7">
-                        <div class="story-body up d1">
-                            <p>Fui godín casi diez años. Buenos trabajos, pero persiguiendo sueños ajenos. En el camino me desconecté y empecé a buscar una tribu — gente con quien crecer de verdad.</p>
-                            <p>Me cansé de buscarla. Así que decidí <strong>construirla</strong>: una comunidad para apoyar a otros y crecer juntos. La llamé <strong>La Red de Luz</strong>.</p>
-                            <p>Arranqué por el propósito y la creación de contenido… y me quemé. Por querer hacer todo perfecto. Todavía me peleo con mi perfeccionismo — pero ya aprendí a elegir la <strong>acción sobre el análisis</strong>.</p>
-                            <p>Esta vez empiezo distinto: una marca personal dedicada a crear <strong>sistemas, equipos, ecosistemas y contextos</strong>. Donde disfruto lo que hago y respeto mi descanso y mis tiempos.</p>
+                    </article>
+
+                    <!-- Slide 1 · Colisión 2 -->
+                    <article class="col-slide">
+                        <div class="col-slide-in">
+                            <p class="col-n mono-label">Colisión 02 · el mismo miedo</p>
+                            <div class="col-pair">
+                                <span class="col-a">Un local vacío mes y medio</span>
+                                <span class="col-x" aria-hidden="true">✕</span>
+                                <span class="col-b">Una idea que no te atreves a sacar</span>
+                            </div>
+                            <p class="col-reveal">Las dos esperan lo mismo: que alguien llegue solo. No llega. Hasta que
+                                regalas valor primero. Entonces dejan de ser desconocidos.</p>
                         </div>
-                        <blockquote class="pullquote up d2" style="margin-top:2.2rem; max-width:28ch;">
-                            "Estoy cansado de perseguir sueños ajenos. Ahora voy por los míos — ayudando a otros con los suyos."
-                        </blockquote>
-                    </div>
+                    </article>
+
+                    <!-- Slide 2 · Remate -->
+                    <article class="col-slide">
+                        <div class="col-slide-in">
+                            <p class="col-n mono-label">Lo que las dos me enseñaron</p>
+                            <p class="col-lesson">Las dos son <span class="coral">el mismo miedo.</span> El de molestar.
+                                El de incomodar. El de creer que tu mensaje no vale la pena interrumpir a alguien.</p>
+                            <p class="col-reveal">Hasta que un día lo crucé. Y cayó el centavo: <span class="accent">no
+                                    estaba molestando. Estaba aportando.</span></p>
+                        </div>
+                    </article>
+
+                    <!-- Slide 3 · La Quebradita (lead magnet, cierre del carrusel) -->
+                    <article class="col-slide col-slide-ebook" id="quebradita">
+                        <div class="col-slide-in ebook-grid">
+                            <div class="ebook-cover">
+
+                                <img class="ebook-art-img" src="assets/imgs/quebradita-portada.png"
+                                    alt="Portada del ebook La Quebradita">
+                            </div>
+                            <div class="ebook-body">
+                                <p class="mono-label">Tu primer paso · Gratis</p>
+                                <h2 class="ebook-title">¿Reconoces ese miedo? <span class="coral">Escribí un libro sobre
+                                        cómo cruzarlo.</span></h2>
+                                <p class="ebook-desc">La Quebradita es el acantilado donde aprendí a saltar. Esto es lo
+                                    que encontré del otro lado: cómo dejar de esperar el momento perfecto y dar el paso.
+                                    Te lo regalo.</p>
+                                <form id="ebook-form" class="ebook-form" novalidate>
+                                    <div class="ebook-field">
+                                        <label for="eb-nombre" class="sr-only">Tu nombre</label>
+                                        <input class="input" type="text" id="eb-nombre" name="nombre"
+                                            autocomplete="name" placeholder="¿Cómo te llamas?">
+                                    </div>
+                                    <button type="submit" class="btn btn-accent"><span class="btn-label">Quiero el
+                                            libro</span></button>
+                                    <div class="hp" aria-hidden="true"><label for="eb-website">No llenar</label><input
+                                            type="text" id="eb-website" name="website" tabindex="-1" autocomplete="off">
+                                    </div>
+                                </form>
+                                <p class="ebook-note up">Te llega por WhatsApp, directo de mí. Sin spam.</p>
+                                <div class="ebook-status" role="status" aria-live="polite"></div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- 02 · LO QUE ME MUEVE -->
-        <section class="section" id="filosofia">
+        <!-- ============================================================
+             2b · MI DIFERENCIADOR — ingeniería ✕ alma (la colisión que YO junté)
+             ============================================================ -->
+        <section class="diff" id="diferenciador" data-night>
             <div class="wrap">
-                <p class="mono-label up">02 — Lo que me mueve</p>
-                <div class="manifesto" data-skew style="margin-top:2.5rem;">
-                    <div class="manifesto-item up">
-                        <span class="m-n">01</span>
-                        <div><div class="m-t">Acción sobre análisis.</div><p class="m-d">Dejé de perseguir la perfección. Persigo movimiento — avanzar imperfecto es mejor que planear eterno.</p></div>
-                    </div>
-                    <div class="manifesto-item up">
-                        <span class="m-n">02</span>
-                        <div><div class="m-t">Aprender en la intersección.</div><p class="m-d">Lo bueno pasa donde se cruzan disciplinas que nadie junta: ingeniería, psicología, diseño, narrativa.</p></div>
-                    </div>
-                    <div class="manifesto-item up">
-                        <span class="m-n">03</span>
-                        <div><div class="m-t">Crecer para apoyar a otros.</div><p class="m-d">No quiero llegar solo. Construyo sistemas, equipos y contextos para que otros también lleguen.</p></div>
-                    </div>
+                <p class="mono-label up">Hay una colisión que no fue accidente</p>
+                <div class="diff-pair up d1">
+                    <span class="diff-a">Ingeniería</span>
+                    <span class="diff-x" aria-hidden="true">+</span>
+                    <span class="diff-b serif-it">alma</span>
                 </div>
+                <p class="diff-body up d1">Por años escogí solo una: las pantallas. La lógica. La estructura. Me sentía
+                    seguro ahí.</p>
+                <p class="diff-body up d1">Hasta que entendí que me faltaba la otra mitad. Así que <strong>aprendí a
+                        construir el puente.</strong> Hoy vivo en ese cruce: sistemas con sentido, tecnología con
+                    humanidad, estructura para que tu luz tenga forma.</p>
             </div>
         </section>
 
-        <!-- 03 · LA OBRA (lista con imagen al cursor) -->
+        <!-- ============================================================
+             3 · EL SALTO — frase de guerra (mask reveal, noche)
+             ============================================================ -->
+        <section class="creed" data-night>
+            <div class="wrap">
+                <p class="mono-label up">El día que salté</p>
+                <h2 class="creed-line" data-mask>
+                    <span>No te falta luz.</span>
+                    <span class="accent">Te falta estructura.</span>
+                </h2>
+                <p class="creed-sub up d1">Eso me lo dije a mí primero. Llevaba años con potencial y sin dirección.
+                    Mucha idea, cero plano. El día que dejé de buscar el momento perfecto y empecé a construir el
+                    sistema, todo se ordenó.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             4 · LO QUE HAGO — la obra (lista con imagen al cursor)
+             ============================================================ -->
         <section class="section" id="obra">
             <div class="wrap">
-                <div class="up" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem;">
+                <div class="up"
+                    style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem;">
                     <div>
-                        <p class="mono-label">03 — La obra</p>
-                        <h2 class="display" style="font-size:clamp(2.2rem,7vw,4.5rem); margin-top:0.6rem;">Lo que he construido</h2>
+                        <p class="mono-label">Lo que he construido</p>
+                        <h2 class="display" style="font-size:clamp(2.2rem,7vw,4.5rem); margin-top:0.6rem;">Cosas reales.
+                            <span class="accent">Con gente real.</span></h2>
                     </div>
-                    <p class="mute" style="max-width:32ch; font-size:0.95rem;">Proyectos propios y sitios para clientes. Pasa el cursor sobre cada uno.</p>
+                    <p class="mute" style="max-width:36ch; font-size:0.95rem;">Proyectos propios y sitios para clientes.
+                        Algunos siguen vivos, otros me enseñaron al cerrar. Todos dejaron equipo y valor. Pasa el
+                        cursor.</p>
                 </div>
 
                 <ul class="project-list" data-skew style="margin-top:3rem;">
-                    <li class="project-row" data-img="assets/imgs/community.jpg">
-                        <div class="p-mobile-img"><img src="assets/imgs/community.jpg" alt="La Red de Luz"></div>
+                    <li class="project-row" data-img="assets/imgs/lareddeluz.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/lareddeluz.png" alt="La Red de Luz"></div>
                         <a href="https://lareddeluz.com" target="_blank" rel="noopener">
-                            <span class="p-i">01</span><span class="p-n">La Red de Luz</span><span class="p-m">Proyecto propio · Misión</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">01</span><span class="p-n">La Red de Luz</span><span class="p-m">Proyecto
+                                propio · Comunidad</span><span class="p-arrow" aria-hidden="true">↗</span>
                         </a>
                     </li>
-                    <li class="project-row" data-img="assets/imgs/teamwork.jpg">
-                        <div class="p-mobile-img"><img src="assets/imgs/teamwork.jpg" alt="VitalBeat"></div>
+                    <li class="project-row" data-img="assets/imgs/vitalbeat.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/vitalbeat.png" alt="VitalBeat"></div>
                         <a href="https://vitalbeat.lareddeluz.com" target="_blank" rel="noopener">
-                            <span class="p-i">02</span><span class="p-n">VitalBeat</span><span class="p-m">Proyecto propio</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">02</span><span class="p-n">VitalBeat</span><span class="p-m">Mi mejor
+                                lección · Emprendimiento</span><span class="p-arrow" aria-hidden="true">↗</span>
                         </a>
                     </li>
-                    <li class="project-row" data-img="assets/imgs/aprendiendo.jpg">
-                        <div class="p-mobile-img"><img src="assets/imgs/aprendiendo.jpg" alt="DESPEGA"></div>
+                    <li class="project-row" data-img="assets/imgs/despega.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/despega.png" alt="DESPEGA"></div>
                         <a href="https://lareddeluz.com" target="_blank" rel="noopener">
-                            <span class="p-i">03</span><span class="p-n">DESPEGA</span><span class="p-m">Proyecto propio · Programa</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">03</span><span class="p-n">DESPEGA</span><span class="p-m">Proyecto propio
+                                · Programa</span><span class="p-arrow" aria-hidden="true">↗</span>
                         </a>
                     </li>
-                    <li class="project-row" data-img="assets/imgs/profile.png">
-                        <div class="p-mobile-img"><img src="assets/imgs/profile.png" alt="Ebooks"></div>
+                    <li class="project-row" data-img="assets/imgs/de-0-a-heroe.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/de-0-a-heroe.png" alt="Ebooks"></div>
                         <a href="ebook1-gratis.html" target="_blank" rel="noopener">
-                            <span class="p-i">04</span><span class="p-n">De 0 a Héroe del Diseño Web</span><span class="p-m">Contenido · Ebooks</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">04</span><span class="p-n">De 0 a Héroe del Diseño Web</span><span
+                                class="p-m">Contenido · Ebooks</span><span class="p-arrow" aria-hidden="true">↗</span>
                         </a>
                     </li>
-                    <li class="project-row" data-img="assets/imgs/teamwork.jpg">
-                        <div class="p-mobile-img"><img src="assets/imgs/teamwork.jpg" alt="Lumiku"></div>
+                    <li class="project-row" data-img="assets/imgs/lumiku.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/lumiku.png" alt="Lumiku"></div>
                         <a href="https://lumikupsicoinfantil.com/" target="_blank" rel="noopener">
-                            <span class="p-i">05</span><span class="p-n">Lumiku Psicología Infantil</span><span class="p-m">Desarrollo web · Cliente</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">05</span><span class="p-n">Lumiku Psicología Infantil</span><span
+                                class="p-m">Desarrollo web · Cliente</span><span class="p-arrow"
+                                aria-hidden="true">↗</span>
                         </a>
                     </li>
-                    <li class="project-row" data-img="assets/imgs/community.jpg">
-                        <div class="p-mobile-img"><img src="assets/imgs/community.jpg" alt="Equilibria DBT"></div>
+                    <li class="project-row" data-img="assets/imgs/equilibria.png">
+                        <div class="p-mobile-img"><img src="assets/imgs/equilibria.png" alt="Equilibria DBT"></div>
                         <a href="https://equilibriadbt.com.mx/" target="_blank" rel="noopener">
-                            <span class="p-i">06</span><span class="p-n">Equilibria DBT</span><span class="p-m">Desarrollo web · Cliente</span><span class="p-arrow" aria-hidden="true">↗</span>
+                            <span class="p-i">06</span><span class="p-n">Equilibria DBT</span><span
+                                class="p-m">Desarrollo web · Cliente</span><span class="p-arrow"
+                                aria-hidden="true">↗</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </section>
 
-        <!-- 04 · LA RED DE LUZ (banda cobalto) -->
-        <section class="section band-accent" id="comunidad">
+        <!-- ============================================================
+             5 · LA CONSTELACIÓN — lo que construyo se dibuja conectando
+             ============================================================ -->
+        <section class="section constel-sec" id="constelacion">
             <div class="wrap">
-                <div class="grid lg:grid-cols-12 gap-12 items-center">
-                    <div class="lg:col-span-6">
-                        <p class="mono-label up">04 — La Red de Luz</p>
-                        <h2 class="display up d1" style="font-size:clamp(2.4rem,7vw,5rem); margin-top:1rem; max-width:14ch;">La tribu que decidí construir.</h2>
-                        <div class="up d1" style="font-size:1.1rem; display:grid; gap:1.1rem; max-width:52ch; margin-top:1.4rem;">
-                            <p class="soft">Más que una comunidad, es un <strong style="color:#fff;">ecosistema</strong>: un contexto que te ayuda a desarrollar el mindset, las técnicas, las habilidades y las herramientas para crecer — y para apoyar a otros.</p>
-                            <p class="soft">No importa qué idea traigas: aquí todos te decimos que <strong style="color:#fff;">sí es posible, que sí lo puedes lograr.</strong></p>
-                        </div>
-                        <div class="up d2" style="margin-top:2rem;">
-                            <span class="magnetic"><a href="https://lareddeluz.com" target="_blank" rel="noopener" class="btn">Entra a La Red de Luz ↗</a></span>
-                        </div>
+                <div class="up" style="max-width:50ch;">
+                    <p class="mono-label">La constelación</p>
+                    <h2 class="display" style="font-size:clamp(2rem,6vw,4rem); margin-top:0.6rem;">No son servicios.
+                        <span class="accent">Es un camino.</span></h2>
+                    <p class="soft" style="font-size:1.1rem; margin-top:1.2rem; max-width:44ch;">Todo nace de una red —
+                        La Red de Luz — y dentro crece cada constelación. Primero ordenas la idea. Luego la sacas al
+                        mundo. Y nunca lo haces solo.</p>
+                </div>
+
+                <!-- Nodo 0 — la red que envuelve todo -->
+                <article class="cnode-zero up" id="constel-zero">
+                    <div class="cz-head">
+                        <p class="cnode-coord mono-label">Nodo 00 · La red que conecta todo</p>
+                        <h3 class="cnode-name cz-name">La Red de Luz</h3>
                     </div>
-                    <div class="lg:col-span-6 up">
-                        <div class="photo r-16x9"><img src="assets/imgs/community.jpg" alt="La Red de Luz" data-speed="0.3"></div>
-                    </div>
+                    <p class="cz-desc">El cielo donde viven todas las constelaciones. Aquí ninguna luz crece sola — nos
+                        recordamos, una a otra, cómo brillar. <a href="https://lareddeluz.com" target="_blank"
+                            rel="noopener" class="cz-link">Entra a la red ↗</a></p>
+                </article>
+
+                <div class="constel-map" id="constel-map">
+                    <svg class="constel-lines" id="constel-lines" aria-hidden="true" preserveAspectRatio="none"></svg>
+                    <article class="cnode up" data-node style="--col:1;">
+                        <p class="cnode-coord mono-label">Nodo 01 · Claridad</p>
+                        <h3 class="cnode-name">DESPEGA</h3>
+                        <p class="cnode-flow"><span>Confusión</span><i aria-hidden="true">→</i><span
+                                class="accent">Claridad</span></p>
+                        <p class="cnode-desc">Ordenar el mundo interno. Encontrar dirección y propósito antes de correr.
+                        </p>
+                    </article>
+                    <article class="cnode up d1" data-node style="--col:2;">
+                        <p class="cnode-coord mono-label">Nodo 02 · Materialización</p>
+                        <h3 class="cnode-name">De Tu Mente al Mundo</h3>
+                        <p class="cnode-flow"><span>Idea</span><i aria-hidden="true">→</i><span class="accent">Presencia
+                                real</span></p>
+                        <p class="cnode-desc">Sacar tu mensaje al mundo es más complejo de lo que parece: copy, diseño,
+                            anuncios, estrategia. Yo las fui aprendiendo todas por querer hacerlo solo. Aquí te las
+                            acomodo.</p>
+                    </article>
+                    <article class="cnode up d2" data-node style="--col:3;">
+                        <p class="cnode-coord mono-label">Nodo 03 · Tu constelación</p>
+                        <h3 class="cnode-name">La que tú traes</h3>
+                        <p class="cnode-flow"><span>Idea sola</span><i aria-hidden="true">→</i><span class="coral">Red
+                                humana</span></p>
+                        <p class="cnode-desc">El siguiente nodo eres tú. Tu proyecto, convertido en una red de gente que
+                            cree en él.</p>
+                    </article>
+                </div>
+
+                <p class="constel-creed up">Una constelación es <span class="serif-it">un proyecto convertido en red
+                        humana.</span></p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             6 · LA INVITACIÓN — te falta un nodo: el tuyo (clímax)
+             ============================================================ -->
+        <section class="invite" id="invite" data-night>
+            <canvas class="invite-canvas" id="invite-canvas" aria-hidden="true"></canvas>
+            <div class="wrap">
+                <p class="mono-label up">A la red</p>
+                <div class="invite-callout">
+                    <p class="invite-l1 up d1">le falta una luz.</p>
+                    <p class="invite-l2" data-mask>La tuya.</p>
+                </div>
+                <p class="invite-sub up d1">Yo busqué mi tribu por años. No la hallaba. Hasta que entendí que tenía que
+                    construirla. Esto no es solo lo que hago. Es un movimiento de gente que se recuerda, una a otra,
+                    cómo brillar. <strong>Y le faltas tú.</strong></p>
+                <blockquote class="anthem serif-it up d2">
+                    Mi luz ilumina a algunos.<br>
+                    Pero con la tuya, le damos la vuelta al mundo.
+                </blockquote>
+                <div class="up d2" style="margin-top:2.4rem;">
+                    <span class="magnetic"><a href="#conecta" class="btn btn-accent">Conéctate a la red</a></span>
                 </div>
             </div>
         </section>
 
-        <!-- 05 · CONECTA -->
+        <!-- ============================================================
+             7 · CONECTA
+             ============================================================ -->
         <section class="section" id="conecta">
             <div class="wrap">
                 <div class="grid lg:grid-cols-12 gap-12">
                     <div class="lg:col-span-5">
-                        <p class="mono-label up">05 — Conecta</p>
-                        <h2 class="display up d1" style="font-size:clamp(2.2rem,7vw,4.2rem); margin-top:1rem; max-width:13ch;">Tu idea ya existe. <span class="accent">Hagámosla real.</span></h2>
-                        <p class="soft up d1 pretty" style="font-size:1.1rem; margin-top:1.4rem; max-width:46ch;">¿Quieres construir algo, sumarte a La Red de Luz, o solo platicar? Me encantará conocerte.</p>
+                        <p class="mono-label up">Súmate</p>
+                        <h2 class="display up d1"
+                            style="font-size:clamp(2.2rem,7vw,4.2rem); margin-top:1rem; max-width:13ch;">Tu idea no está
+                            muerta. <span class="accent">Está sola.</span></h2>
+                        <p class="soft up d1 pretty" style="font-size:1.1rem; margin-top:1.4rem; max-width:46ch;">
+                            Cuéntame qué traes dentro. Si quieres construir algo, sumarte a La Red de Luz, o solo
+                            platicar — aquí estoy.</p>
                         <div class="up d2" style="margin-top:1.8rem; display:grid; gap:0.7rem; width:fit-content;">
-                            <a href="https://wa.me/526221424577?text=Hola%20Javier%2C%20vi%20tu%20sitio%20y%20quiero%20platicar%20contigo." target="_blank" rel="noopener" class="btn btn-line">
-                                <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <a href="https://wa.me/526221424577?text=Hola%20Javier%2C%20vi%20tu%20sitio%20y%20quiero%20platicar%20contigo."
+                                target="_blank" rel="noopener" class="btn btn-line">
+                                <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                                </svg>
                                 WhatsApp directo
                             </a>
                             <a href="mailto:javier.millan14@gmail.com" class="btn btn-line">
-                                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
                                 javier.millan14@gmail.com
                             </a>
                         </div>
                     </div>
 
                     <div class="lg:col-span-7 up d1">
-                        <form id="lead-form" novalidate style="border:1.5px solid var(--ink); padding:clamp(1.6rem,4vw,2.6rem);">
+                        <form id="lead-form" novalidate
+                            style="border:1.5px solid var(--ink); padding:clamp(1.6rem,4vw,2.6rem);">
                             <h3 class="display" style="font-size:1.8rem;">Platiquemos</h3>
                             <div style="display:grid; gap:1.2rem; margin-top:1.6rem;">
                                 <div class="field">
                                     <label for="nombre">¿Cómo te llamas?</label>
-                                    <input class="input" type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre">
+                                    <input class="input" type="text" id="nombre" name="nombre" autocomplete="name"
+                                        placeholder="Tu nombre">
                                     <span class="field-error" data-error-for="nombre"></span>
                                 </div>
                                 <div class="field">
                                     <label for="mensaje">¿Quién eres y en qué andas?</label>
-                                    <textarea class="textarea" id="mensaje" name="mensaje" placeholder="Cuéntame qué haces, qué te trae aquí o qué idea traes en mente…"></textarea>
+                                    <textarea class="textarea" id="mensaje" name="mensaje"
+                                        placeholder="Cuéntame qué haces, qué te trae aquí o qué idea traes en mente…"></textarea>
                                     <span class="field-error" data-error-for="mensaje"></span>
                                 </div>
                                 <div class="field">
                                     <label for="ayuda">¿Qué te interesa? <span class="mute">(opcional)</span></label>
-                                    <input class="input" type="text" id="ayuda" name="ayuda" placeholder="Un proyecto, La Red de Luz, una colaboración, solo platicar…">
+                                    <input class="input" type="text" id="ayuda" name="ayuda"
+                                        placeholder="Un proyecto, La Red de Luz, una colaboración, solo platicar…">
                                 </div>
                                 <div class="hp" aria-hidden="true">
                                     <label for="website">No llenar</label>
                                     <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                                 </div>
                                 <div class="form-status" role="status" aria-live="polite"></div>
-                                <button type="submit" class="btn btn-accent btn-block"><span class="btn-label">Enviar por WhatsApp</span></button>
-                                <p class="mute" style="font-size:0.8rem; text-align:center;">Sin spam. Se abre WhatsApp con tu mensaje listo.</p>
+                                <button type="submit" class="btn btn-accent btn-block"><span class="btn-label">Enviar
+                                        por WhatsApp</span></button>
+                                <p class="mute" style="font-size:0.8rem; text-align:center;">Sin spam. Se abre WhatsApp
+                                    con tu mensaje listo.</p>
                             </div>
                         </form>
                     </div>
@@ -268,28 +456,46 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="wrap">
-            <p class="foot-big" data-skew>Hablemos.</p>
+            <p class="foot-big" data-skew>Construyamos.</p>
             <div class="grid md:grid-cols-2 gap-8 items-end" style="margin-top:2.5rem;">
                 <div style="display:flex; gap:0.7rem;">
-                    <a href="https://wa.me/526221424577" target="_blank" rel="noopener" class="social" aria-label="WhatsApp">
-                        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <a href="https://wa.me/526221424577" target="_blank" rel="noopener" class="social"
+                        aria-label="WhatsApp">
+                        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.488-.916zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                        </svg>
                     </a>
-                    <a href="https://lareddeluz.com" target="_blank" rel="noopener" class="social" aria-label="La Red de Luz">
-                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/></svg>
+                    <a href="https://lareddeluz.com" target="_blank" rel="noopener" class="social"
+                        aria-label="La Red de Luz">
+                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" />
+                            <path stroke-linecap="round"
+                                d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2" />
+                        </svg>
                     </a>
                     <a href="mailto:javier.millan14@gmail.com" class="social" aria-label="Email">
-                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
                     </a>
                 </div>
                 <div style="text-align:right;">
-                    <p class="mute" style="font-size:0.85rem;">© <span id="year">2026</span> Javier Millán · Guadalajara, MX</p>
-                    <p class="mono-label" style="margin-top:0.3rem;">Entre la ingeniería y todo lo demás</p>
+                    <p class="mute" style="font-size:0.85rem;">© <span id="year">2026</span> Javier Millán ·
+                        Guadalajara, MX</p>
+                    <p class="mono-label" style="margin-top:0.3rem;">No te falta luz. Te falta estructura.</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>
+
 </html>

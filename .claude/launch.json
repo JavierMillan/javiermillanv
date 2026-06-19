@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "despega",
+      "runtimeExecutable": "C:/Users/Usuario/AppData/Local/Programs/Python/Python312/python.exe",
+      "runtimeArgs": ["-m","http.server","8731","--directory","C:/Users/Usuario/Documents/Proyectos/despega-landing"],
+      "port": 8731
+    }
+  ]
+}
